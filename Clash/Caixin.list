@@ -2,6 +2,7 @@
 
 DOMAIN-SUFFIX,caixin.com
 DOMAIN-SUFFIX,caixindata.com
+DOMAIN-SUFFIX,ccxe.com.cn
 IP-CIDR,124.203.226.1/32,no-resolve
 IP-CIDR,114.113.83.12/32,no-resolve
 IP-CIDR,114.113.83.15/32,no-resolve
