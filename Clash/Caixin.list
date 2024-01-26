@@ -6,4 +6,4 @@ IP-CIDR,114.113.83.12/32,no-resolve
 IP-CIDR,114.113.83.15/32,no-resolve
 IP-CIDR,114.113.83.24/32,no-resolve
 IP-CIDR,114.113.83.30/32,no-resolve
-IP-CIDR,101.201.30.46/32,no-resolve
+IP-CIDR,101.201.30.46/24,no-resolve
