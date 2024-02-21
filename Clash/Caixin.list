@@ -7,10 +7,11 @@ DOMAIN-SUFFIX,vod.volcengineapi.com
 DOMAIN-SUFFIX,assets.giocdn.com
 DOMAIN-SUFFIX,sentry.bxtdata.com
 IP-CIDR,124.203.226.1/32,no-resolve
-IP-CIDR,114.113.83.12/32,no-resolve
-IP-CIDR,114.113.83.15/32,no-resolve
-IP-CIDR,114.113.83.24/32,no-resolve
-IP-CIDR,114.113.83.30/32,no-resolve
+IP-CIDR,114.113.83.0/25,no-resolve
+# IP-CIDR,114.113.83.12/32,no-resolve
+# IP-CIDR,114.113.83.15/32,no-resolve
+# IP-CIDR,114.113.83.24/32,no-resolve
+# IP-CIDR,114.113.83.30/32,no-resolve
 IP-CIDR,101.201.30.46/32,no-resolve
 IP-CIDR,124.14.14.0/25,no-resolve
 IP-CIDR,124.14.16.0/25,no-resolve
