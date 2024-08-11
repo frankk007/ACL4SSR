@@ -1,5 +1,12 @@
 # NAME: 财新传媒
 
+DOMAIN-SUFFIX,cn.wsj.com
+DOMAIN-SUFFIX,wsj.com
+DOMAIN-SUFFIX,cn.nytimes.com
+DOMAIN-SUFFIX,nytimes.com
+DOMAIN-SUFFIX,xianxiao.ssap.com.cn
+DOMAIN-SUFFIX,hbr-caijing.com
+DOMAIN-SUFFIX,h5.yunpub.cn
 DOMAIN-SUFFIX,caixin.com
 DOMAIN-SUFFIX,caixindata.com
 DOMAIN-SUFFIX,ccxe.com.cn
