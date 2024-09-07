@@ -73,21 +73,18 @@ dns:
   fake-ip-range: 198.18.0.1/16
   # fakeip 过滤，过滤的地址不会下发 fakeip 映射用于连接
   fake-ip-filter:
-    #LAN
-    - *.lan
-    - *.localdomain
-    - *.example
-    - *.invalid
-    - *.localhost
-    - *.test
-    - *.local
-    - *.home.arpa
-    #放行NTP服务
+    - "*.lan"
+    - "*.localdomain"
+    - "*.example"
+    - "*.invalid"
+    - "*.localhost"
+    - "*.test"
+    - "*.local"
+    - "*.home.arpa"
     - time.*.com
     - time.*.gov
     - time.*.edu.cn
     - time.*.apple.com
-    - time-ios.apple.com
     - time1.*.com
     - time2.*.com
     - time3.*.com
@@ -103,136 +100,79 @@ dns:
     - ntp5.*.com
     - ntp6.*.com
     - ntp7.*.com
-    - *.time.edu.cn
-    - *.ntp.org.cn
+    - "*.time.edu.cn"
+    - "*.ntp.org.cn"
     - +.pool.ntp.org
     - time1.cloud.tencent.com
-    #放行网易云音乐
     - music.163.com
-    - *.music.163.com
-    - *.126.net
-    #百度音乐
+    - "*.music.163.com"
+    - "*.126.net"
     - musicapi.taihe.com
     - music.taihe.com
-    #酷狗音乐
     - songsearch.kugou.com
     - trackercdn.kugou.com
-    #酷我音乐
-    - *.kuwo.cn
-    #JOOX音乐
+    - "*.kuwo.cn"
     - api-jooxtt.sanook.com
     - api.joox.com
     - joox.com
-    #QQ音乐
     - y.qq.com
-    - *.y.qq.com
+    - "*.y.qq.com"
     - streamoc.music.tc.qq.com
     - mobileoc.music.tc.qq.com
     - isure.stream.qqmusic.qq.com
     - dl.stream.qqmusic.qq.com
     - aqqmusic.tc.qq.com
     - amobile.music.tc.qq.com
-    #虾米音乐
-    - *.xiami.com
-    #咪咕音乐
-    - *.music.migu.cn
+    - "*.xiami.com"
+    - "*.music.migu.cn"
     - music.migu.cn
-    #win10本地连接检测
     - +.msftconnecttest.com
     - +.msftncsi.com
-    #QQ登录
+    - msftconnecttest.com
+    - msftncsi.com
     - localhost.ptlogin2.qq.com
     - localhost.sec.qq.com
-    - +.qq.com
-    - +.tencent.com
-    #Game
-    #Steam
-    - +.steamcontent.com
-    #Nintendo Switch
     - +.srv.nintendo.net
-    - *.n.n.srv.nintendo.net
-    - +.cdn.nintendo.net
-    #Sony PlayStation
     - +.stun.playstation.net
-    #Microsoft Xbox
-    - xbox.*.*.microsoft.com
-    - *.*.xboxlive.com
     - xbox.*.microsoft.com
     - xnotify.xboxlive.com
-    #Wotgame
+    - +.ipv6.microsoft.com
     - +.battlenet.com.cn
     - +.wotgame.cn
     - +.wggames.cn
     - +.wowsgame.cn
     - +.wargaming.net
-    #Golang
     - proxy.golang.org
-    #STUN
     - stun.*.*
     - stun.*.*.*
     - +.stun.*.*
     - +.stun.*.*.*
     - +.stun.*.*.*.*
-    - +.stun.*.*.*.*.*
-    #Linksys Router
     - heartbeat.belkin.com
-    - *.linksys.com
-    - *.linksyssmartwifi.com
-    #ASUS Router
-    - *.router.asus.com
-    #Apple Software Update Service
+    - "*.linksys.com"
+    - "*.linksyssmartwifi.com"
+    - "*.router.asus.com"
     - mesu.apple.com
     - swscan.apple.com
     - swquery.apple.com
     - swdownload.apple.com
     - swcdn.apple.com
     - swdist.apple.com
-    #Google
     - lens.l.google.com
     - stun.l.google.com
-    - na.b.g-tun.com
-    #Netflix
-    - +.nflxvideo.net
-    #FinalFantasy XIV Worldwide Server & CN Server
-    - *.square-enix.com
-    - *.finalfantasyxiv.com
-    - *.ffxiv.com
-    - *.ff14.sdo.com
+    - "*.square-enix.com"
+    - "*.finalfantasyxiv.com"
+    - "*.ffxiv.com"
+    - "*.ff14.sdo.com"
     - ff.dorado.sdo.com
-    #Bilibili
-    - *.mcdn.bilivideo.cn
-    #Disney Plus
+    - "*.mcdn.bilivideo.cn"
     - +.media.dssott.com
-    #shark007 Codecs 
-    - shark007.net
-    #Mijia
+    - +.pvp.net
     - Mijia Cloud
-    #Xiaomi
-    - +.market.xiaomi.com
-    #招商银行
-    - +.cmbchina.com
-    - +.cmbimg.com
-    #AdGuard
-    - adguardteam.github.io
-    - adrules.top
-    - anti-ad.net
-    - local.adguard.org
-    - static.adtidy.org
-    #迅雷
-    - +.sandai.net
-    - +.n0808.com
-    #T-mobile and Ultra Mobile wifi calling
-    - +.3gppnetwork.org
-    #UU Plugin
-    - +.uu.163.com
-    - ps.res.netease.com
-    #向日葵远程控制
-    - +.oray.com
-    - +.orayimg.com
   nameserver:
-    - 119.29.29.29 # 腾讯DNS
-    - 223.5.5.5 # 阿里DNS
-    - 180.76.76.76 # 百度DNS
+     - 119.29.29.29 # 腾讯DNS
+     - 223.5.5.5 # 阿里DNS
+     - 180.76.76.76 # 百度DNS
      #- 117.50.11.11 # ONE DNS拦截版 恶意网站拦截、广告过滤
      #- 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
      #- 114.114.114.114 # 114DNS
