@@ -73,7 +73,12 @@ dns:
   fake-ip-range: 198.18.0.1/16
   # fakeip 过滤，过滤的地址不会下发 fakeip 映射用于连接
   fake-ip-filter:
-     - time.*.com
+    - time.*.com
+    - time.*.gov
+    - time.*.edu.cn
+    - time.*.apple.com
+    - time1.*.com
+    - time2.*.com
   nameserver:
      - 119.29.29.29 # 腾讯DNS
      - 223.5.5.5 # 阿里DNS
