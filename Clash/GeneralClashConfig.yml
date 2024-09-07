@@ -70,8 +70,9 @@ dns:
   ipv6: true
   listen: 0.0.0.0:53
   enhanced-mode: fake-ip
-  fake-ip-range: 198.18.0.1/16 #
-  fake-ip-filter: # fakeip 过滤，以下地址不会下发 fakeip 映射用于连接
+  fake-ip-range: 198.18.0.1/16
+  # fakeip 过滤，以下地址不会下发 fakeip 映射用于连接
+  fake-ip-filter:
      - #LAN
      - *.lan
      - *.localdomain
