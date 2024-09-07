@@ -6,13 +6,16 @@
 mixed-port: 7890
 
 # HTTP 代理端口
-# port: 7890
+# port: 7891
 
 # SOCKS5 代理端口
-socks-port: 7891
+# socks-port: 7892
 
-# Linux 和 macOS 的 redir 代理端口 (如需使用此功能，请取消注释)
-# redir-port: 7892
+# Linux 和 macOS 的 redir 代理端口，仅能代理 TCP 流量 (如需使用此功能，请取消注释)
+# redir-port: 7893
+
+# tproxy 透明代理端口，可代理 TCP 与 UDP 流量，tproxy 端口仅限 linux(Android) 适用
+tproxy-port: 7894
 
 # 允许局域网的连接（可用来共享代理）
 allow-lan: true
@@ -25,7 +28,7 @@ bind-address: "*"
 ipv6: true
 
 # 规则模式：rule（规则） / global（全局代理）/ direct（全局直连）/ script (脚本)
-# mode: rule
+mode: rule
 
 # 设置日志输出级别 (默认级别：silent，即不输出任何内容，以避免因日志内容过大而导致程序内存溢出）。
 # 5 个级别：silent / error / warning / info / debug。级别越高日志输出量越大，越倾向于调试，若需要请自行开启。
@@ -46,8 +49,8 @@ external-controller: '127.0.0.1:9090'
 # secret: ""
 
 # 实验性功能
-experimental:
-  ignore-resolve-fail: true # 忽略 DNS 解析失败，默认值为 true
+# experimental:
+  # ignore-resolve-fail: true # 忽略 DNS 解析失败，默认值为 true
   # interface-name: en0 # outbound interface name
 
 # 本地 SOCKS5 / HTTP(S) 服务认证
@@ -62,19 +65,19 @@ experimental:
 #   '*.clash.dev': 127.0.0.1
 #   'alpha.clash.dev': '::1'
 
-#dns:
-  #enable: true # 是否启用dns false
-  #ipv6: false
-  #listen: 0.0.0.0:53
-  #enhanced-mode: redir-host # 模式：redir-host或fake-ip
-  #fake-ip-range: 198.18.0.1/16 #
-  #fake-ip-filter: # fake ip 白名单列表，如果你不知道这个参数的作用，请勿修改
+dns:
+  enable: true # 是否启用dns false
+  ipv6: true
+  listen: 0.0.0.0:53
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16 #
+  fake-ip-filter: https://raw.githubusercontent.com/juewuy/ShellCrash/dev/public/fake_ip_filter.list
      #- '*.lan'
      #- localhost.ptlogin2.qq.com
-  #nameserver:
-     #- 223.5.5.5 # 阿里DNS
-     #- 180.76.76.76 # 百度DNS
-     #- 119.29.29.29 # 腾讯DNS
+  nameserver:
+     - 223.5.5.5 # 阿里DNS
+     - 180.76.76.76 # 百度DNS
+     - 119.29.29.29 # 腾讯DNS
      #- 117.50.11.11 # ONE DNS拦截版 恶意网站拦截、广告过滤
      #- 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
      #- 114.114.114.114 # 114DNS
@@ -130,8 +133,8 @@ experimental:
 
 # Clash for Windows
 # Proxies module latency test settings
-cfw-latency-timeout: 3000
-cfw-latency-url: http://www.gstatic.com/generate_204
+# cfw-latency-timeout: 3000
+# cfw-latency-url: http://www.gstatic.com/generate_204
 
 # 混合配置（mixin）
 # 支持向所有配置文件中注入公共属性设置
@@ -159,9 +162,9 @@ cfw-latency-url: http://www.gstatic.com/generate_204
 # Options for profile: true, false
 # Options for mode: true, false
 cfw-conn-break-strategy:
-  proxy: none # none/chain/all
+  proxy: chain # none/chain/all
   profile: true # true/false
-  mode: false # true/false
+  mode: true # true/false
 
 # 自定义状态栏图标
 #cfw-tray-icon:
@@ -214,7 +217,7 @@ cfw-proxies-order: default
 # System proxy will ignore these domains(or ipnet)
 # 系统代理跳过列表-备份的，不起作用，
 # 使用时可以将cfw-bypass-bak与cfw-bypass内容互换
-cfw-bypass-bak:
+# cfw-bypass-bak:
   # 原有字段不用删除
   - qq.com
   - 'music.163.com' # 网易云域名1
