@@ -75,7 +75,6 @@ dns:
   fake-ip-filter:
     - *.lan
     - "*.localdomain"
-    - "*.example"
     - "*.invalid"
     - "*.localhost"
     - "*.test"
