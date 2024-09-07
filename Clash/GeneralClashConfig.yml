@@ -1,4 +1,4 @@
-#---------------------------------------------------#
+#改动：增加 tproxy 端口，开启 DNS ，修改 fake ip-filter，删除 cfw-bypass#
 # 配置文件需要放置在 $HOME/.config/clash/config.yml
 # 或者运行目录下的config.yml
 #---------------------------------------------------#
@@ -101,7 +101,7 @@ dns:
      - ntp4.*.com
      - ntp5.*.com
      - ntp6.*.com
-     -      - ntp7.*.com
+     - ntp7.*.com
      - *.time.edu.cn
      - *.ntp.org.cn
      - +.pool.ntp.org
@@ -227,8 +227,7 @@ dns:
      - ps.res.netease.com
      - #向日葵远程控制
      - +.oray.com
-     - +.orayimg.com
-     
+     - +.orayimg.com     
   nameserver:
      - 119.29.29.29 # 腾讯DNS
      - 223.5.5.5 # 阿里DNS
