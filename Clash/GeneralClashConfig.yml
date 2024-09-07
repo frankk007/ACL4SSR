@@ -71,7 +71,7 @@ dns:
   listen: 0.0.0.0:53
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16 #
-  fake-ip-filter: 
+  fake-ip-filter: https://raw.githubusercontent.com/juewuy/ShellCrash/dev/public/fake_ip_filter.list
      #- '*.lan'
      #- localhost.ptlogin2.qq.com
   nameserver:
