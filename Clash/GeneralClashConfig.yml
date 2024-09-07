@@ -1,4 +1,5 @@
-#改动：增加 tproxy 端口，开启 DNS ，修改 fake ip-filter，删除 cfw-bypass#
+#---------------------------------------------------#
+#改动：增加 tproxy 端口，开启 DNS ，修改 fake ip-filter，删除 cfw-bypass
 # 配置文件需要放置在 $HOME/.config/clash/config.yml
 # 或者运行目录下的config.yml
 #---------------------------------------------------#
