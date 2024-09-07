@@ -168,12 +168,21 @@ dns:
     - "*.mcdn.bilivideo.cn"
     - +.media.dssott.com
     - +.pvp.net
+    - shark007.net
     - Mijia Cloud
+    - +.market.xiaomi.com
+    - +.cmbchina.com
+    - +.cmbimg.com
     - adguardteam.github.io
     - adrules.top
     - anti-ad.net
     - local.adguard.org
     - static.adtidy.org
+    - +.sandai.net
+    - +.n0808.com
+    - +.3gppnetwork.org
+    - +.uu.163.com
+    - ps.res.netease.com
     - +.oray.com
     - +.orayimg.com
   nameserver:
