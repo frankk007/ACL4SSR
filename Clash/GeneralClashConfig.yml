@@ -326,5 +326,5 @@ cfw-conn-break-strategy:
 cfw-bypass:
   # 直连列表
   # MyList
-  # - "*.13th.tech"
+  - "ksaudioplay.caixin.com"
 
