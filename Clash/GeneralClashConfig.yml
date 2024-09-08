@@ -239,9 +239,8 @@ dns:
 #    type: select
 #    proxies:
 #      - Shadowsocks
-#rules:
+rules:
 #  - 'MATCH,DIRECT'
-prepend-rules：
    - DOMAIN,ksaudioplay.caixin.com,DIRECT
 
 # Clash for Windows
