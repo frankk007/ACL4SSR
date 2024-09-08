@@ -326,4 +326,4 @@ cfw-conn-break-strategy:
 cfw-bypass:
   # 直连列表
   # MyList
-  - "ksaudio.caixin.com"
+  - "ksaudioplay.caixin.com"
