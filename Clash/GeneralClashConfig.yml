@@ -241,6 +241,8 @@ dns:
 #      - Shadowsocks
 #rules:
 #  - 'MATCH,DIRECT'
+prepend-rules：
+   - DOMAIN,ksaudioplay.caixin.com,DIRECT
 
 # Clash for Windows
 # Proxies module latency test settings
@@ -326,5 +328,4 @@ cfw-conn-break-strategy:
 cfw-bypass:
   # 直连列表
   # MyList
-  - ksaudioplay.caixin.com
 
