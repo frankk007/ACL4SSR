@@ -239,7 +239,7 @@ dns:
 #    type: select
 #    proxies:
 #      - Shadowsocks
-# rules:
+#rules:
 #  - 'MATCH,DIRECT'
 
 # Clash for Windows
@@ -323,7 +323,10 @@ cfw-conn-break-strategy:
       #detached: true # 子进程独立于其父进程运行
       #shell: true # 则在 shell 中运行 command
       #windowsHide: true # 隐藏子进程的控制台窗口
+# 系统代理跳过列表 起作用的
 cfw-bypass:
   # 直连列表
   # MyList
+  # - "*.13th.tech"
+  # - "*.423down.com"
 
