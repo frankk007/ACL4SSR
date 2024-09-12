@@ -1,5 +1,5 @@
-# 花云配置大部分+尾巴来自shellcrash版fake ip filter
-# shellcrash版fake ip filter: M 核和 singbox p 核，可使用该规则集
+# 花云配置大部分+尾巴来自shellcrash fake ip filter规则集
+# shellcrash内置fake ip filter规则集https://raw.githubusercontent.com/juewuy/ShellCrash/dev/public/fake_ip_filter.list，M 核和 singbox p 核可使用
      - "*.lan"
      - "*.localdomain"
      - "*.example"
