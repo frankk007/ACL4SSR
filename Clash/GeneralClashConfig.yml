@@ -249,7 +249,7 @@ dns:
 
 # 混合配置（mixin）
 # 支持向所有配置文件中注入公共属性设置
-#cfw-profile-mixin:
+cfw-profile-mixin:
   #dns:
     #enable: true
     #listen: :53
@@ -263,6 +263,9 @@ dns:
      #- 114.114.114.114 # 114DNS
   #experimental:
     #interface-name: WLAN
+  rules:
+    - DOMAIN,ksaudioplay.caixin.com
+    - DOMAIN,videobyte.caixin.com    
 
 #自定义配置目录
 #cfw-profiles-path: 'C:\Users\Administrator\.config\clash\profiles'
