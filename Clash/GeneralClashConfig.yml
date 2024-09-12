@@ -264,8 +264,8 @@ cfw-profile-mixin:
   #experimental:
     #interface-name: WLAN
   rules:
-    - DOMAIN,ksaudioplay.caixin.com
-    - DOMAIN,videobyte.caixin.com    
+    - DOMAIN,ksaudioplay.caixin.com,DIRECT
+    - DOMAIN,videobyte.caixin.com,DIRECT    
 
 #自定义配置目录
 #cfw-profiles-path: 'C:\Users\Administrator\.config\clash\profiles'
