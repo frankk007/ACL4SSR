@@ -1,5 +1,5 @@
-#  自定义重要域名直连
+# 内容：自定义重要域名直连
 
 DOMAIN,ksaudioplay.caixin.com
 DOMAIN,videobyte.caixin.com
-DOMAIN-keyword,zotero.org
+DOMAIN-SUFFIX,zotero.org
