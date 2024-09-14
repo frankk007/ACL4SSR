@@ -1,4 +1,5 @@
-# AudioCaixin 直连(仅用于财新音视频播放失败)
+#  自定义重要域名直连
 
 DOMAIN,ksaudioplay.caixin.com
 DOMAIN,videobyte.caixin.com
+DOMAIN-suffix,zotero.org
