@@ -239,8 +239,7 @@ dns:
 #    type: select
 #    proxies:
 #      - Shadowsocks
-rules:
-   - 'DOMAIN-SUFFIX,misakaf.org,🚀 节点选择'
+#rules:
 #  - 'MATCH,DIRECT'
 
 # Clash for Windows
