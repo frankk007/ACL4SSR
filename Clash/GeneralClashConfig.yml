@@ -9,7 +9,7 @@ mixed-port: 7890
 # port: 7890
 
 # SOCKS5 代理端口
-# socks-port: 7891
+socks-port: 7891
 
 # Linux 和 macOS 的 redir 代理端口，仅能代理 TCP 流量 (如需使用此功能，请取消注释)
 redir-port: 7892
@@ -71,7 +71,65 @@ dns:
   listen: 0.0.0.0:53
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
-  # fakeip 过滤，过滤的地址不会下发 fakeip 映射用于连接
+  nameserver:
+     - 119.29.29.29 # 腾讯DNS
+     - 223.5.5.5 # 阿里DNS
+     - 180.76.76.76 # 百度DNS
+     #- 117.50.11.11 # ONE DNS拦截版 恶意网站拦截、广告过滤
+     #- 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
+     #- 114.114.114.114 # 114DNS
+     #- https://dns.alidns.com/dns-query # 阿里 DoH DNS
+     #- https://doh.360.cn/dns-query # 360 DoH DNS
+  fallback:
+     #- 8.8.8.8 # 谷歌DNS
+     #- 1.1.1.1 # Cloudflare DNS
+     - tls://dns.rubyfish.cn:853
+     - tls://1.0.0.1:853
+     - tls://dns.google:853
+     - https://dns.rubyfish.cn/dns-query
+     - https://cloudflare-dns.com/dns-query
+     - https://dns.google/dns-query
+# fallback 过滤，在以下列表的域名将会标记为污染域名，从而只应用 fallback 国外 DNS 请求所获得的 IP
+  fallback-filter:
+     geoip: true # 默认
+     geoip-code: CN
+     ipcidr: # 在这个网段内的 IP 地址会被考虑为被污染的 IP
+       - 240.0.0.0/4
+       - 0.0.0.0/32
+       - 127.0.0.1/32
+     domain:
+       - +.facebook.com
+       - +.twitter.com
+       - +.google.com
+       - +.googleapis.com
+       - +.google.cn
+       - +.googleapis.cn
+       - +.xn--ngstr-lra8j.com
+       - +.googlevideo.com
+       - +.gvt1.com
+       - +.gmail.com
+       - +.youtube.com
+       - +.youtu.be
+       - +.gvt0.com
+       - +.gvt2.com
+       - +.gvt3.com
+       - +.gstatic.com
+       - +.265.com
+       - +.2mdn.net
+       - +.app-measurement.com
+       - +.c.admob.com
+       - +.clickserve.dartsearch.net
+       - +.crl.pki.goog
+       - +.doubleclick.net
+       - +.firebase-settings.crashlytics.com
+       - +.google-analytics.com
+       - +.googleadservices.com
+       - +.googleanalytics.com
+       - +.googleoptimize.com
+       - +.googlesyndication.com
+       - +.googletagmanager.com
+       - +.googletagservices.com
+  # fakeip 过滤，在以下列表的域名将不会被解析为 fake ip，这些域名相关的解析请求将会返回它们真实的 IP 地址
   fake-ip-filter:
      - "*.lan"
      - "*.localdomain"
@@ -184,29 +242,7 @@ dns:
      - +.uu.163.com
      - ps.res.netease.com
      - +.oray.com
-     - +.orayimg.com
-  nameserver:
-     - 119.29.29.29 # 腾讯DNS
-     - 223.5.5.5 # 阿里DNS
-     - 180.76.76.76 # 百度DNS
-     #- 117.50.11.11 # ONE DNS拦截版 恶意网站拦截、广告过滤
-     #- 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
-     #- 114.114.114.114 # 114DNS
-     #- https://dns.alidns.com/dns-query # 阿里 DoH DNS
-     #- https://doh.360.cn/dns-query # 360 DoH DNS
-  #fallback:
-     #- 8.8.8.8 # 谷歌DNS
-     #- 1.1.1.1 # Cloudflare DNS
-     #- tls://dns.rubyfish.cn:853
-     #- tls://1.0.0.1:853
-     #- tls://dns.google:853
-     #- https://dns.rubyfish.cn/dns-query
-     #- https://cloudflare-dns.com/dns-query
-     #- https://dns.google/dns-query
-  #fallback-filter:
-     #geoip: true # 默认
-     #ipcidr: # 在这个网段内的 IP 地址会被考虑为被污染的 IP
-       #- 240.0.0.0/4
+     - +.orayimg.com       
 
 # 1. clash DNS 请求逻辑：
 #   (1) 当访问一个域名时， nameserver 与 fallback 列表内的所有服务器并发请求，得到域名对应的 IP 地址。
