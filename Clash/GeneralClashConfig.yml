@@ -91,7 +91,7 @@ dns:
      - https://dns.google/dns-query
 # fallback 过滤，在以下列表的域名将会标记为污染域名，从而只应用 fallback 国外 DNS 请求所获得的 IP
   fallback-filter:
-     geoip: false # 默认
+     geoip: true # 默认
      geoip-code: CN
      ipcidr: # 在这个网段内的 IP 地址会被考虑为被污染的 IP
        - 240.0.0.0/4
