@@ -89,7 +89,7 @@ dns:
      - https://dns.rubyfish.cn/dns-query
      - https://cloudflare-dns.com/dns-query
      - https://dns.google/dns-query
-# fallback 过滤，在以下列表的域名将会标记为污染域名，从而只应用 fallback 国外 DNS 请求所获得的 IP
+# fallback-filter，在以下列表的域名将会标记为污染域名，从而只应用 fallback 国外 DNS 请求所获得的 IP
   fallback-filter:
      geoip: true # 默认
      geoip-code: CN
