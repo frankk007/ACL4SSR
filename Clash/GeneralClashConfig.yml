@@ -1,4 +1,4 @@
-# 变更：增加 tproxy 端口，修改 DNS ，修改 fake ip-filter(大部分花云，末尾补充了 shellcrash 版)，删除 cfw-bypass
+# 变更：增加 tproxy 端口，增加frankk.tech域名映射，修改 DNS ，修改 fake ip-filter(大部分花云，末尾补充了 shellcrash 版)，删除 cfw-bypass
 # 配置文件需要放置在 $HOME/.config/clash/config.yml
 # 或者运行目录下的config.yml
 #---------------------------------------------------#
