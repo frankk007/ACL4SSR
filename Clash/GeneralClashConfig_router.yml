@@ -133,7 +133,7 @@ dns:
        - +.googletagmanager.com
        - +.googletagservices.com
   # fakeip 过滤，在以下列表的域名将不会被解析为 fake ip，这些域名相关的解析请求将会返回它们真实的 IP 地址
-  #fake-ip-filter:
+  fake-ip-filter:
      - "*.lan"
      - "*.localdomain"
      - "*.example"
