@@ -70,7 +70,7 @@ dns:
   enable: true
   ipv6: true
   listen: 0.0.0.0:53
-  enhanced-mode: redir_host
+  enhanced-mode: fake-ip
   #fake-ip-range: 198.18.0.1/16
   nameserver:
      - 223.5.5.5
@@ -245,7 +245,8 @@ dns:
      - +.uu.163.com
      - ps.res.netease.com
      - +.oray.com
-     - +.orayimg.com       
+     - +.orayimg.com
+     - frankk.tech
 
 # 1. clash DNS 请求逻辑：
 #   (1) 当访问一个域名时， nameserver 与 fallback 列表内的所有服务器并发请求，得到域名对应的 IP 地址。
