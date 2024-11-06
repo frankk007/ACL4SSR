@@ -70,8 +70,8 @@ dns:
   enable: true
   ipv6: true
   listen: 0.0.0.0:53
-  enhanced-mode: fake-ip
-  fake-ip-range: 198.18.0.1/16
+  enhanced-mode: redir-host
+  #fake-ip-range: 198.18.0.1/16
   nameserver:
      - 223.5.5.5
      - 119.29.29.29
@@ -133,7 +133,7 @@ dns:
        - +.googletagmanager.com
        - +.googletagservices.com
   # fakeip 过滤，在以下列表的域名将不会被解析为 fake ip，这些域名相关的解析请求将会返回它们真实的 IP 地址
-  fake-ip-filter:
+  #fake-ip-filter:
      - "*.lan"
      - "*.localdomain"
      - "*.example"
