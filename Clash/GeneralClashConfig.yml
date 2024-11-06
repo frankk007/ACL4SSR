@@ -1,4 +1,4 @@
-# 变更：增加 tproxy 端口，增加frankk.tech域名映射，修改 DNS ，修改 fake ip-filter(大部分花云，末尾补充了 shellcrash 版)，删除 cfw-bypass
+# 变更：增加 tproxy 端口，修改 DNS ，修改 fake ip-filter(大部分花云，末尾补充了 shellcrash 版)，删除 cfw-bypass
 # 配置文件需要放置在 $HOME/.config/clash/config.yml
 # 或者运行目录下的config.yml
 #---------------------------------------------------#
@@ -61,8 +61,8 @@ external-controller: '127.0.0.1:9090'
 # 实验性功能 hosts, 支持通配符 (例如 *.clash.dev 甚至 *.foo.*.example.com)
 # 静态的域名 比 通配域名 具有更高的优先级 (foo.example.com 优先于 *.example.com)
 # 注意: hosts 在 fake-ip 模式下不生效
-hosts:
-   'frankk.tech': 192.168.2.233
+#hosts:
+#   'frankk.tech': 192.168.2.233
 #   '*.clash.dev': 127.0.0.1
 #   'alpha.clash.dev': '::1'
 
