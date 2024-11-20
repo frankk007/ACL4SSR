@@ -1,4 +1,4 @@
-# 变更：增加 tproxy 端口，修改 DNS ，修改 fake ip-filter(大部分花云，末尾补充了 shellcrash 版)，删除 cfw-bypass
+# 变更：增加 tproxy 端口，修改 DNS (搬运花云)，删除 cfw-bypass
 # 配置文件需要放置在 $HOME/.config/clash/config.yml
 # 或者运行目录下的config.yml
 #---------------------------------------------------#
@@ -73,8 +73,12 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   nameserver:
-     - 223.5.5.5
      - 119.29.29.29
+     - 223.5.5.5
+     - tls://223.5.5.5:853
+     - tls://223.6.6.6:853
+     - tls://120.53.53.53
+     - tls://1.12.12.12
      #- 117.50.11.11 # ONE DNS拦截版 恶意网站拦截、广告过滤
      #- 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
      #- 114.114.114.114 # 114DNS
@@ -94,8 +98,8 @@ dns:
      #- https://dns.google/dns-query
 # fallback-filter，在以下列表的域名将会标记为污染域名，从而只应用 fallback 国外 DNS 请求所获得的 IP
   fallback-filter:
-     geoip: true # 默认
-     geoip-code: CN
+     geoip: false # 默认true
+     # geoip-code: CN
      ipcidr: # 在这个网段内的 IP 地址会被考虑为被污染的 IP
        - 240.0.0.0/4
        - 0.0.0.0/32
@@ -228,24 +232,7 @@ dns:
      - ff.dorado.sdo.com
      - "*.mcdn.bilivideo.cn"
      - +.media.dssott.com
-     - +.pvp.net
-     - shark007.net
-     - Mijia Cloud
-     - +.market.xiaomi.com
-     - +.cmbchina.com
-     - +.cmbimg.com
-     - adguardteam.github.io
-     - adrules.top
-     - anti-ad.net
-     - local.adguard.org
-     - static.adtidy.org
-     - +.sandai.net
-     - +.n0808.com
-     - +.3gppnetwork.org
-     - +.uu.163.com
-     - ps.res.netease.com
-     - +.oray.com
-     - +.orayimg.com       
+     - +.pvp.net      
 
 # 1. clash DNS 请求逻辑：
 #   (1) 当访问一个域名时， nameserver 与 fallback 列表内的所有服务器并发请求，得到域名对应的 IP 地址。
