@@ -7,6 +7,7 @@
 # DOMAIN-SUFFIX,hbr-caijing.com
 DOMAIN-SUFFIX,xianxiao.ssap.com.cn
 DOMAIN-SUFFIX,h5.yunpub.cn
+# 当请求为域名匹配到 GEOIP 或 IP-CIDR 规则时,Clash 将请求 DNS 查询来检查域名的 IP 是否匹配此条规则,可以选择“no-resolve”选项以跳过域名去进行 dns 解析，这样可以使域名走代理
 # 以下为财新传媒
 DOMAIN-SUFFIX,caixin.com
 DOMAIN-SUFFIX,caixindata.com
