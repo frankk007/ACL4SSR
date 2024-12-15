@@ -1,7 +1,5 @@
-# 内容：自定义重要域名直连
+# 内容：自用域名直连
 
-DOMAIN,ksaudioplay.caixin.com
-DOMAIN,videobyte.caixin.com
 DOMAIN,sciencedirect.com
 DOMAIN-SUFFIX,zotero.org
 DOMAIN-SUFFIX,quickconnect.to
