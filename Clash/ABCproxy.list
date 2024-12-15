@@ -1,4 +1,5 @@
 # 内容：自用域名代理
+# 如果兜底选择direct，那么订阅转换后端域名要写入此规则集
 
 DOMAIN-SUFFIX,emby.wtf
 DOMAIN-SUFFIX,term.wtf
