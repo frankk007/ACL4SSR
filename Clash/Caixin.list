@@ -1,6 +1,7 @@
 # NAME: 财新传媒
 # 当请求为域名匹配到 GEOIP 或 IP-CIDR 规则时,Clash 将请求 DNS 查询来检查域名的 IP 是否匹配此条规则,可以选择“no-resolve”选项以跳过域名去进行 dns 解析，这样可以使域名走代理
 
+DOMAIN-SUFFIX,caixin.cn
 DOMAIN-SUFFIX,caixin.com
 DOMAIN-SUFFIX,caixindata.com
 DOMAIN-SUFFIX,ccxe.com.cn
