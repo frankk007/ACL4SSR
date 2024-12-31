@@ -1,5 +1,5 @@
 # 内容：自用域名代理
-# 不建议兜底选择direct，若坚持direct，常用代理域名要写入此规则，而且导致github无法访问
+# 不建议兜底选择direct，若坚持direct，常用代理域名要写入此规则
 
 DOMAIN-SUFFIX,emby.wtf
 DOMAIN-SUFFIX,term.wtf
