@@ -1,1 +1,3 @@
-d
+# 内容：屏蔽adobe软件联网验证
+
+DOMAIN-SUFFIX,adobe.io
