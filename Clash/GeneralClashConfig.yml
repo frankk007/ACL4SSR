@@ -1,4 +1,4 @@
-# 变更：增加 tproxy 端口，修改 DNS (搬运花云)，删除 cfw-bypass, fake-ip-filter增加"*.frankk.tech"
+# 变更：增加 tproxy 端口，修改 DNS (搬运花云)，删除 cfw-bypass, fake-ip-filter增加+.frankk.tech
 # 配置文件需要放置在 $HOME/.config/clash/config.yml
 # 或者运行目录下的config.yml
 #---------------------------------------------------#
@@ -138,7 +138,7 @@ dns:
        - +.googletagservices.com
   # fakeip 过滤，在以下列表的域名将不会被解析为 fake ip，这些域名相关的解析请求将会返回它们真实的 IP 地址
   fake-ip-filter:
-     - "*.frankk.tech"
+     - +.frankk.tech
      - "*.lan"
      - "*.localdomain"
      - "*.example"
