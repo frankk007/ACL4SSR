@@ -1,11 +1,10 @@
-# 内容：自用域名直连
+# 内容：自用域名直连，学术、群晖qc、pt站
 
 DOMAIN,sciencedirect.com
 DOMAIN-SUFFIX,elsevier.com
 DOMAIN-SUFFIX,zotero.org
 DOMAIN-SUFFIX,quickconnect.to
 DOMAIN-SUFFIX,quickconnect.cn
-DOMAIN-SUFFIX,ntalker.com
 DOMAIN-KEYWORD,m-team
 DOMAIN,hhanclub.top
 DOMAIN,hhan.club
