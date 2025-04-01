@@ -1,9 +1,10 @@
 # 内容：自用域名代理
-# 订阅转换后端域名，第4-5个为花云推荐后端
+# 订阅转换后端域名（第4-5个为花云推荐后端），moviepolit环境代理
 
 DOMAIN,api.wcc.best
 DOMAIN,sub.xeton.dev
 DOMAIN,sub.id9.cc
 DOMAIN,sub-web.wcc.best
 DOMAIN,sublink.dev
+DOMAIN,api.themoviedb.org
 
