@@ -72,22 +72,19 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   nameserver: # 默认 DNS 服务
-     - 119.29.29.29
      - 223.5.5.5
+     - 119.29.29.29
      #- https://dns.alidns.com/dns-query # 阿里 DoH DNS
   fallback: # 国外 DNS 服务器
      - https://cloudflare-dns.com/dns-query
      - https://dns.google/dns-query
      - https://dns.alidns.com/dns-query
-# fallback-filter，在以下列表的域名将会标记为污染域名，从而只应用 fallback 国外 DNS 请求所获得的 IP
   fallback-filter:
-     geoip: true # 默认true
-     geoip-code: # 默认DNS返回的ip属于 CN → 直接返回，非 CN → 用 fallback DNS 再查 → 返回干净结果
+     geoip: true 
+     geoip-code: CN # 默认DNS返回的ip属于 CN → 直接返回，非 CN → 用 fallback DNS 再查 → 返回干净结果
      ipcidr: # 在这个网段内的 IP 地址会被考虑为被污染的 IP
        - 240.0.0.0/4
-       - 0.0.0.0/32
-       - 127.0.0.1/32
-     domain:
+     domain: # 以下域名将会标记为污染域名，从而只应用 fallback 国外 DNS 请求所获得的 IP
        - +.facebook.com
        - +.twitter.com
        - +.google.com
@@ -119,7 +116,7 @@ dns:
        - +.googlesyndication.com
        - +.googletagmanager.com
        - +.googletagservices.com
-  # fakeip 过滤，在以下列表的域名将不会被解析为 fake ip，这些域名相关的解析请求将会返回它们真实的 IP 地址
+  # fakeip 过滤，以下域名解析不采用 fake-ip 方式，这些域名相关的解析请求将会返回它们真实的 IP 地址
   fake-ip-filter:
      - "*.lan"
      - localhost.ptlogin2.qq.com
