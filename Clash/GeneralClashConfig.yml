@@ -1,4 +1,4 @@
-# 变更：增加 tproxy 端口，增加自定义 geodata url，增加sniff，修改 DNS，删除 cfw-bypass
+# 变更：增加 tproxy 端口，修改 DNS，删除 cfw-bypass
 # 配置文件需要放置在 $HOME/.config/clash/config.yml
 # 或者运行目录下的config.yml
 #---------------------------------------------------#
@@ -15,7 +15,7 @@ socks-port: 7891
 redir-port: 7892
 
 # tproxy 透明代理端口，可代理 TCP 与 UDP 流量，tproxy 端口仅限 linux(Android) 适用
-tproxy-port: 7893
+tproxy-port: 7894
 
 # 允许局域网的连接（可用来共享代理）
 allow-lan: true
@@ -29,15 +29,6 @@ ipv6: true
 
 # 规则模式：rule（规则） / global（全局代理）/ direct（全局直连）/ script (脚本)
 mode: rule
-
-#自定义 geodata url
-geox-url:
-  geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
-  geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
-  mmdb: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb"
-
-geo-auto-update: false # 是否自动更新 geodata
-geo-update-interval: 24 # 更新间隔，单位：小时
 
 # 设置日志输出级别 (默认级别：silent，即不输出任何内容，以避免因日志内容过大而导致程序内存溢出）。
 # 5 个级别：silent / error / warning / info / debug。级别越高日志输出量越大，越倾向于调试，若需要请自行开启。
@@ -74,43 +65,59 @@ external-controller: '127.0.0.1:9090'
 #   '*.clash.dev': 127.0.0.1
 #   'alpha.clash.dev': '::1'
 
-sniffer:
-  enable: true
-  sniff:
-    HTTP:
-      ports: [80, 8080-8880]
-  override-destination: true # 当嗅探到真实域名时，用域名替换掉原目标 IP，再进行规则匹配
-    TLS:
-      ports: [443, 8443]
-    QUIC:
-      ports: [443, 8443]
-  force-domain:
-    - +.v2ex.com
-  # skip-src-address: # 对于来源ip跳过嗅探
-  #   - 192.168.0.3/32
-   skip-dst-address: # 对于目标ip跳过嗅探
-     - 192.168.2.0/24      
-  skip-domain:
-    - "Mijia Cloud"
-    - "+.push.apple.com"
-    - "+.myds.me"
-
 dns:
-  enable: true # 关闭将使用系统 DNS
-  listen: 0.0.0.0:53 # 开启 DNS 服务器监听
-  ipv6: false # false 将返回 AAAA 的空结果
-  # 用于解析 nameserver，fallback 以及其他 DNS 服务器配置的，DNS 服务域名
-  # 只能使用纯 IP 地址，可使用加密 DNS
-  default-nameserver:
-    - 114.114.114.114
-    - 8.8.8.8
-    - tls://1.12.12.12:853
-    - tls://223.5.5.5:853
-    - system # append DNS server from system configuration. If not found, it would print an error log and skip.
-  enhanced-mode: fake-ip # or redir-host
-  
-  fake-ip-range: 198.18.0.1/16 # fake-ip 池设置
-  
+  enable: true
+  ipv6: false
+  listen: 0.0.0.0:53
+  enhanced-mode: fake-ip # or redir-host 
+  fake-ip-range: 198.18.0.1/16
+  nameserver: # 默认 DNS 服务
+     - system
+     - 223.5.5.5
+     - 119.29.29.29
+     #- https://dns.alidns.com/dns-query # 阿里 DoH DNS
+     #- https://doh.pub/dns-query # 腾讯 DoH DNS
+  fallback: # 国外 DNS 服务器
+     - https://cloudflare-dns.com/dns-query
+     - https://dns.google/dns-query
+     - https://dns.alidns.com/dns-query
+  fallback-filter:
+     geoip: true 
+     geoip-code: CN # 默认DNS返回的ip属于 CN → 直接返回，非 CN → 用 fallback DNS 再查 → 返回干净结果
+     ipcidr: # 在这个网段内的 IP 地址会被考虑为被污染的 IP
+       - 240.0.0.0/4
+     domain: # 以下域名将会标记为污染域名，从而只应用 fallback 国外 DNS 请求所获得的 IP
+       - +.facebook.com
+       - +.twitter.com
+       - +.google.com
+       - +.googleapis.com
+       - +.google.cn
+       - +.googleapis.cn
+       - +.xn--ngstr-lra8j.com
+       - +.googlevideo.com
+       - +.gvt1.com
+       - +.gmail.com
+       - +.youtube.com
+       - +.youtu.be
+       - +.gvt0.com
+       - +.gvt2.com
+       - +.gvt3.com
+       - +.gstatic.com
+       - +.265.com
+       - +.2mdn.net
+       - +.app-measurement.com
+       - +.c.admob.com
+       - +.clickserve.dartsearch.net
+       - +.crl.pki.goog
+       - +.doubleclick.net
+       - +.firebase-settings.crashlytics.com
+       - +.google-analytics.com
+       - +.googleadservices.com
+       - +.googleanalytics.com
+       - +.googleoptimize.com
+       - +.googlesyndication.com
+       - +.googletagmanager.com
+       - +.googletagservices.com
   # fakeip 过滤，以下域名解析不采用 fake-ip 方式，这些域名相关的解析请求将会返回它们真实的 IP 地址
   fake-ip-filter:
      - "*.lan"
@@ -126,47 +133,6 @@ dns:
      - "*.battlenet.com"
      - "*.blzstatic.cn"
      - "*.battle.net"   
-     
-  nameserver: # 默认 DNS 服务
-     - 221.12.1.227
-     - 221.12.33.227
-     - 223.5.5.5
-     - 119.29.29.29
-
-  # fallback: # 国外 DNS 服务器
-  #    - https://cloudflare-dns.com/dns-query
-  #    - https://dns.google/dns-query
-  #    - https://dns.alidns.com/dns-query
-  # 配置 fallback 使用条件
-  # fallback-filter:
-  #   geoip: true # 配置是否使用 geoip
-  #   geoip-code: CN # 当 nameserver 域名的 IP 查询 geoip 库为 CN 时，不使用 fallback 中的 DNS 查询结果
-  #   配置强制 fallback，优先于 IP 判断，具体分类自行查看 geosite 库
-  #   geosite:
-  #     - gfw
-  #   如果不匹配 ipcidr 则使用 nameservers 中的结果
-  #   ipcidr:
-  #     - 240.0.0.0/4
-  #   domain:
-  #     - '+.google.com'
-  #     - '+.facebook.com'
-  #     - '+.youtube.com'
-
-  # 配置查询域名使用的 DNS 服务器
-  nameserver-policy:
-    "geosite:geolocation-!cn":
-      - https://cloudflare-dns.com/dns-query
-      - https://dns.google/dns-query
-      - https://dns.alidns.com/dns-query  
-    #   'www.baidu.com': '114.114.114.114'
-    #   '+.internal.crop.com': '10.0.0.1'
-#    "geosite:cn,private,apple":
-#      - https://doh.pub/dns-query
-#      - https://dns.alidns.com/dns-query
-#    "geosite:category-ads-all": rcode://success
-#    "www.baidu.com,+.google.cn": [223.5.5.5, https://dns.alidns.com/dns-query]
-  
-
 
 # 1. clash DNS 请求逻辑：
 #   (1) 当访问一个域名时， nameserver 与 fallback 列表内的所有服务器并发请求，得到域名对应的 IP 地址。
@@ -289,4 +255,3 @@ cfw-conn-break-strategy:
   # MyList
   # - "*.13th.tech"
   # - "*.423down.com"
-
