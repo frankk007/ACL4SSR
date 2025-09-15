@@ -7,24 +7,26 @@ geox-url:
 
 sniffer:
   enable: true
+  override-destination: true # 是否使用嗅探结果作为实际访问，默认 true
   sniff:
-    HTTP:
-      ports: [80, 8080-8880]
-  override-destination: true # 当嗅探到真实域名时，用域名替换掉原目标 IP，再进行规则匹配
+    # HTTP:
+    #   ports: [80, 8080-8880]
     TLS:
       ports: [443, 8443]
     QUIC:
       ports: [443, 8443]
   force-domain:
-    - +.v2ex.com
+    - "+.netflix.com"
+    - "+.nflxvideo.net"
+    - "+.amazonaws.com"
+    - "+.media.dssott.com"
   # skip-src-address: # 对于来源ip跳过嗅探
   #   - 192.168.0.3/32
    skip-dst-address: # 对于目标ip跳过嗅探
-     - 192.168.2.0/24      
+  #    - 192.168.2.0/24      
   skip-domain:
     - "Mijia Cloud"
     - "+.push.apple.com"
-    - "+.myds.me"
 
 dns:
   enable: true # 关闭将使用系统 DNS
