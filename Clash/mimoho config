@@ -1,0 +1,98 @@
+#自定义 geodata url
+geox-url:
+  geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb"
+
+
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+  override-destination: true # 当嗅探到真实域名时，用域名替换掉原目标 IP，再进行规则匹配
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  force-domain:
+    - +.v2ex.com
+  # skip-src-address: # 对于来源ip跳过嗅探
+  #   - 192.168.0.3/32
+   skip-dst-address: # 对于目标ip跳过嗅探
+     - 192.168.2.0/24      
+  skip-domain:
+    - "Mijia Cloud"
+    - "+.push.apple.com"
+    - "+.myds.me"
+
+dns:
+  enable: true # 关闭将使用系统 DNS
+  listen: 0.0.0.0:53 # 开启 DNS 服务器监听
+  ipv6: false # false 将返回 AAAA 的空结果
+  # 用于解析 nameserver，fallback 以及其他 DNS 服务器配置的，DNS 服务域名
+  # 只能使用纯 IP 地址，可使用加密 DNS
+  default-nameserver:
+    - 114.114.114.114
+    - 8.8.8.8
+    - tls://1.12.12.12:853
+    - tls://223.5.5.5:853
+    - system # append DNS server from system configuration. If not found, it would print an error log and skip.
+  enhanced-mode: fake-ip # or redir-host
+  
+  fake-ip-range: 198.18.0.1/16 # fake-ip 池设置
+  
+  # fakeip 过滤，以下域名解析不采用 fake-ip 方式，这些域名相关的解析请求将会返回它们真实的 IP 地址
+  fake-ip-filter:
+     - "*.lan"
+     - localhost.ptlogin2.qq.com
+     - +.srv.nintendo.net
+     - +.stun.playstation.net
+     - +.msftconnecttest.com
+     - +.msftncsi.com
+     - +.xboxlive.com
+     - msftconnecttest.com
+     - xbox.*.microsoft.com
+     - "*.battlenet.com.cn"
+     - "*.battlenet.com"
+     - "*.blzstatic.cn"
+     - "*.battle.net"   
+     
+  nameserver: # 默认 DNS 服务
+     - 221.12.1.227
+     - 221.12.33.227
+     - 223.5.5.5
+     - 119.29.29.29
+
+  # fallback: # 国外 DNS 服务器
+  #    - https://cloudflare-dns.com/dns-query
+  #    - https://dns.google/dns-query
+  #    - https://dns.alidns.com/dns-query
+  # 配置 fallback 使用条件
+  # fallback-filter:
+  #   geoip: true # 配置是否使用 geoip
+  #   geoip-code: CN # 当 nameserver 域名的 IP 查询 geoip 库为 CN 时，不使用 fallback 中的 DNS 查询结果
+  #   配置强制 fallback，优先于 IP 判断，具体分类自行查看 geosite 库
+  #   geosite:
+  #     - gfw
+  #   如果不匹配 ipcidr 则使用 nameservers 中的结果
+  #   ipcidr:
+  #     - 240.0.0.0/4
+  #   domain:
+  #     - '+.google.com'
+  #     - '+.facebook.com'
+  #     - '+.youtube.com'
+
+  # 配置查询域名使用的 DNS 服务器
+  nameserver-policy:
+    "geosite:geolocation-!cn":
+      - https://cloudflare-dns.com/dns-query
+      - https://dns.google/dns-query
+      - https://dns.alidns.com/dns-query  
+    #   'www.baidu.com': '114.114.114.114'
+    #   '+.internal.crop.com': '10.0.0.1'
+#    "geosite:cn,private,apple":
+#      - https://doh.pub/dns-query
+#      - https://dns.alidns.com/dns-query
+#    "geosite:category-ads-all": rcode://success
+#    "www.baidu.com,+.google.cn": [223.5.5.5, https://dns.alidns.com/dns-query]
