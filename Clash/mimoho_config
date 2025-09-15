@@ -22,7 +22,7 @@ sniffer:
     - "+.media.dssott.com"
   # skip-src-address: # 对于来源ip跳过嗅探
   #   - 192.168.0.3/32
-   skip-dst-address: # 对于目标ip跳过嗅探
+  # skip-dst-address: # 对于目标ip跳过嗅探
   #    - 192.168.2.0/24      
   skip-domain:
     - "Mijia Cloud"
