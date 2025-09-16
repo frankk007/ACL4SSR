@@ -1,11 +1,11 @@
 #可以在openclash覆写设置中修改，也可以在订阅管理中，直接编辑，并修改监听端口号为7874，然后 保存 ➡ 应用。
 #另外，openclash覆写设置 - meta设置，勾选启动 tcp 并发、统一延迟。
+
 #自定义 geodata url
 geox-url:
   geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
   geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
   mmdb: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb"
-
 
 sniffer:
   enable: true
