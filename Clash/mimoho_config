@@ -1,5 +1,5 @@
-#可以在openclash覆写设置中修改，也可以在订阅管理中，直接编辑，并修改监听端口号为7874，然后 保存 ➡ 应用。
-#另外，openclash覆写设置 - meta设置，勾选启动 tcp 并发、统一延迟。
+#可以在openclash覆写设置中修改，也可以在订阅管理中，直接编辑，然后 保存配置 ➡ 应用配置。
+#另外，openclash覆写设置 - meta设置，勾选启动 tcp 并发、统一延迟。DNS监听端口号已改为7874
 
 #自定义 geodata url
 geox-url:
@@ -33,7 +33,7 @@ sniffer:
 dns:
   cache-algorithm: arc
   enable: true # 关闭将使用系统 DNS
-  listen: 0.0.0.0:53 # 开启 DNS 服务器监听
+  listen: 0.0.0.0:7874 # 开启 DNS 服务器监听
   ipv6: false # false 将返回 AAAA 的空结果
   # 用于解析 nameserver，fallback 以及其他 DNS 服务器配置的，DNS 服务域名
   # 只能使用纯 IP 地址，可使用加密 DNS
