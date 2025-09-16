@@ -29,6 +29,7 @@ sniffer:
     - "+.push.apple.com"
 
 dns:
+  cache-algorithm: arc
   enable: true # 关闭将使用系统 DNS
   listen: 0.0.0.0:53 # 开启 DNS 服务器监听
   ipv6: false # false 将返回 AAAA 的空结果
