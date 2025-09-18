@@ -2,12 +2,18 @@
 #openclash覆写设置 - meta设置，勾选启动 tcp 并发、统一延迟，开启域名嗅探。DNS监听端口号已改为7874
 #⚠️字段拷贝进openclash修改配置后，注意检查首页的运行配置对不对，遇到过nameserver-policy没生效，openclash自动补了fallback的情况。。。。
 #在规则附加中，可以添加自定义规则，支持yaml和txt规则格式，具体规则在 https://github.com/blackmatrix7/ios_rule_script/tree/master/rule 取需
+#fallback中科普了dns服务器类型，记录了常用加密dns
+#mimoho 快捷配置 https://wiki.metacubex.one/example/conf 有两种分流形式，GeoX (geosite/geoip) → 依赖数据库，Rule-Set (远程规则集) → 拉远程订阅，可混合使用
 
+geodata-mode: true
 #自定义 geodata url
 geox-url:
   geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
-  geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  geosite: "https://testingcf.jsdelivr.net/gh/v2fly/domain-list-community@release/dlc.dat"
+  # geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
   mmdb: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb"
+geo-auto-update: true
+geo-update-interval: 24
 
 sniffer:
   enable: true
@@ -96,12 +102,11 @@ dns:
 
   # 配置查询域名使用的 DNS 服务器
   nameserver-policy:
-    "geosite:geolocation-!cn":
+    "geosite:!cn":
       - tls://1.1.1.1:853
       - tls://8.8.8.8:853
       - https://cloudflare-dns.com/dns-query
       - https://dns.google/dns-query
-      - https://dns.alidns.com/dns-query  
     #   'www.baidu.com': '114.114.114.114'
     #   '+.internal.crop.com': '10.0.0.1'
 #    "geosite:cn,private,apple":
@@ -109,3 +114,13 @@ dns:
 #      - https://dns.alidns.com/dns-query
 #    "geosite:category-ads-all": rcode://success
 #    "www.baidu.com,+.google.cn": [223.5.5.5, https://dns.alidns.com/dns-query]
+
+#以下规则按照下面顺序要插入合适的位置
+rules:
+  - GEOSITE,geolocation-!cn@cn,DIRECT # DIRECT 为直连分组，可以改为你自己的分组
+  - GEOSITE,geolocation-!cn,🚀 节点选择 # 🚀 节点选择 为代理分组，可以改为你自己的分组
+  - GEOSITE,geolocation-cn@!cn,🚀 节点选择
+  - GEOSITE,geolocation-cn,DIRECT
+  - GEOSITE,tld-cn,DIRECT #所有以 .cn 为后缀的域名
+
+
