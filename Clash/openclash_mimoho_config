@@ -102,7 +102,7 @@ dns:
 
   # 配置查询域名使用的 DNS 服务器
   nameserver-policy:
-    "geosite:!cn":
+    "geosite:geolocation-!cn":
       - tls://1.1.1.1:853
       - tls://8.8.8.8:853
       - https://cloudflare-dns.com/dns-query
