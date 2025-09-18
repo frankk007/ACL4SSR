@@ -176,12 +176,26 @@ ntp:
 # 域名嗅探
 sniffer:
   enable: true
+  override-destination: true # 是否使用嗅探结果作为实际访问，默认 true
   sniff:
+    # HTTP:
+    #   ports: [80, 8080-8880]
     TLS:
       ports: [443, 8443]
-    HTTP:
-      ports: [80, 8080-8880]
-      override-destination: true
+    QUIC:
+      ports: [443, 8443]
+  force-domain:
+    - "+.netflix.com"
+    - "+.nflxvideo.net"
+    - "+.amazonaws.com"
+    - "+.media.dssott.com"
+  # skip-src-address: # 对于来源ip跳过嗅探
+  #   - 192.168.0.3/32
+  skip-dst-address: # 对于目标ip跳过嗅探
+    - 192.168.2.0/24      
+  skip-domain:
+    - "Mijia Cloud"
+    - "+.push.apple.com"
 
 # tun 模式
 tun:
@@ -196,37 +210,50 @@ tun:
 # dns 设置
 # 已配置 ipv6
 dns:
-  enable: true
-  listen: :1053
-  ipv6: true
+  cache-algorithm: arc
+  enable: true # 关闭将使用系统 DNS
+  listen: 0.0.0.0:7874 # 开启 DNS 服务器监听
+  ipv6: false # false 将返回 AAAA 的空结果
+  # 用于解析 nameserver，fallback 以及其他 DNS 服务器配置的，DNS 服务域名
+  # 只能使用纯 IP 地址，可使用加密 DNS
+  default-nameserver:
+    - 114.114.114.114 # 南京信风
+    - 8.8.8.8
+    - tls://1.12.12.12:853 # 腾讯 DoT
+    - tls://223.5.5.5:853
+    - system # append DNS server from system configuration. If not found, it would print an error log and skip.
+  
+enhanced-mode: redir-host # or fake-ip
   # 路由器个人建议使用 redir-host 以最佳兼容性
   # 其他设备可以使用 fake-ip
-  enhanced-mode: redir-host
-  fake-ip-range: 28.0.0.1/8
+  fake-ip-range: 198.18.0.1/16 # fake-ip 池设置
+  # fakeip 过滤，以下域名解析不采用 fake-ip 方式，这些域名相关的解析请求将会返回它们真实的 IP 地址
   fake-ip-filter:
-    - '*'
-    - '+.lan'
-    - '+.local'
-  default-nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
-    - 114.114.114.114
-    - '[2402:4e00::]'
-    - '[2400:3200::1]'
-  nameserver:
-    - 'tls://8.8.4.4#dns'
-    - 'tls://1.0.0.1#dns'
-    - 'tls://[2001:4860:4860::8844]#dns'
-    - 'tls://[2606:4700:4700::1001]#dns'
-  proxy-server-nameserver:
-    - https://doh.pub/dns-query
+     - "*.lan"
+     - localhost.ptlogin2.qq.com
+     - +.srv.nintendo.net
+     - +.stun.playstation.net
+     - +.msftconnecttest.com
+     - +.msftncsi.com
+     - +.xboxlive.com
+     - msftconnecttest.com
+     - xbox.*.microsoft.com
+     - "*.battlenet.com.cn"
+     - "*.battlenet.com"
+     - "*.blzstatic.cn"
+     - "*.battle.net"   
+
+  nameserver: # 默认 DNS 服务
+     - system
+     - 223.5.5.5
+     - 119.29.29.29
+  # 按域名集合指定解析服务器
   nameserver-policy:
-    "geosite:cn,private":
-      - https://doh.pub/dns-query
-      - https://dns.alidns.com/dns-query
-    "geosite:!cn,!private": 
-      - "tls://dns.google"
-      - "tls://cloudflare-dns.com"
+    "geosite:!cn":
+      - tls://1.1.1.1:853
+      - tls://8.8.8.8:853
+      - https://cloudflare-dns.com/dns-query
+      - https://dns.google/dns-query
 
 # 多入站端口设置
 # listeners:
@@ -340,6 +367,7 @@ rules:
 # - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT
 # - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOIP,CN))),REJECT
   - RULE-SET,AWAvenue-Ads,广告拦截
+  - GEOSITE,geolocation-!cn@cn,DIRECT # DIRECT 为直连分组，可以改为你自己的分组
 # - GEOSITE,biliintl,哔哩东南亚
 # - GEOSITE,bilibili,哔哩哔哩
   - GEOSITE,category-scholar-!cn,境外AI
@@ -366,8 +394,14 @@ rules:
   - GEOIP,netflix,NETFLIX
   - GEOIP,telegram,Telegram
   - GEOIP,twitter,Twitter
-  - GEOSITE,CN,国内
+# - GEOSITE,CN,国内
+  - GEOSITE,geolocation-!cn,节点选择 # 🚀 节点选择 为代理分组，可以改为你自己的分组
+  - GEOSITE,geolocation-cn@!cn,节点选择
+  - GEOSITE,geolocation-cn,DIRECT
+  - GEOSITE,tld-cn,DIRECT #所有以 .cn 为后缀的域名
   - GEOIP,CN,国内
+ 
+
   # 绕过局域网地址
   - IP-CIDR,10.0.0.0/8,DIRECT
   - IP-CIDR,172.16.0.0/12,DIRECT
@@ -375,251 +409,3 @@ rules:
   - IP-CIDR,100.64.0.0/10,DIRECT
   - IP-CIDR,127.0.0.0/8,DIRECT
   - MATCH,其他
-Load earlier comments...
-@Kwisma
-Kwisma commented on Apr 28
-大佬，不知道出问题了，apple域名直连，www.apple.com进不去，www.apple.com.cn却能进去，将apple域名改成使用代理就正常了，导致苹果手机上的天气哪里一类的服务用不了，没有专门dns的设置
-
-将apple代理域名放到直连域名之前即可
-
-@xd456
-xd456 commented on Apr 28
-大佬，不知道出问题了，apple域名直连，www.apple.com进不去，www.apple.com.cn却能进去，将apple域名改成使用代理就正常了，导致苹果手机上的天气哪里一类的服务用不了，没有专门dns的设置
-
-将apple代理域名放到直连域名之前即可
-
-是dns的问题，域名解析不到，关闭配置里的dns就能连上
-
-@runishiwo
-runishiwo commented on May 14
-用GEOSITE和GEOIP的话，这俩软件自动更新后，下面调用的规则也会自动更新吗，还是得重启一下才会更新
-
-@zhouLife
-zhouLife commented on Jun 5
-V2转这个。请问我的自定义节添加在哪？
-
-proxies:
-  - {"name":"自建节点1111","type":"vmess","server":"111.xxx.xyz","port":443,"cipher":"auto","uuid":"11111-0e33-4f71-b7d8-a782b3881ebe","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/1111","headers":{}},"servername":"111.xxx.xyz"}
-@renzhaji
-renzhaji commented on Jun 7
-只修改了订阅一链接提示：net/http: TLS handshake timeout 。获取不到节点，yacd只有分类规则空壳子
-
-@renzhaji
-renzhaji commented on Jun 7
-换了另一位热心分享者的懒人包就一次成功，再重新运行本包发现好了，我觉得可能是那几个插件的github镜像被墙了导致的问题，重新部署就会出现这种情况，更新订阅应该不会
-
-@renzhaji
-renzhaji commented on Jun 8
-话说anytls协议节点现在版本无法测速导致也无法使用，期待大佬更新支持
-
-@zqhaohao
-zqhaohao commented on Jun 8
-1000016855
-小白，不懂就问，接下来怎么做，怎么能直接用上秋风广告拦截😓
-
-@zqhaohao
-zqhaohao commented on Jun 8
-1000016857
-用了省略raw后面那个链接，报错新的问题🥲
-
-@Kwisma
-Kwisma commented on Jun 9
-1000016855 小白，不懂就问，接下来怎么做，怎么能直接用上秋风广告拦截😓
-
-直接用这个生成：https://mihomo.haxtop.ggff.net/
-
-@flyingfeather99
-flyingfeather99 commented on Jun 9
-image
-
-@liuran001 规则是不是有dns泄露
-
-@lovemikusama
-lovemikusama commented on Jun 13 • 
-秋风广告拦截规则地址需要修改AWAvenue-Ads-Rule-Clash-classical.yaml的classical==>Classical，名字改成大写了，我说怎么一直不能更新😂
-
-@liuran001
-Author
-liuran001 commented on Jun 13
-秋风广告拦截规则地址需要修改AWAvenue-Ads-Rule-Clash-classical.yaml的classical==>Classical，名字改成大写了，我说怎么一直不能更新😂
-
-@lovemikusama 改了改了
-
-@yeminny
-yeminny commented on Jun 18
-脚本报错！mihomo
-mihomo.service: Main process exited, code=exited, status=1/FAILURE
-mihomo.service: Failed with result 'exit-code'.
-mihomo.service: Consumed 737ms CPU time, 138.3M memory peak.
-mihomo.service: Scheduled restart job, restart counter is at 3177.
-Started mihomo.service - mihomo Daemon, Another Clash Kernel..
-time="2025-06-18T21:15:18.298664505+08:00" level=info msg="Start initial configuration in progress"
-time="2025-06-18T21:15:18.300454483+08:00" level=info msg="Geodata Loader mode: memconservative"
-time="2025-06-18T21:15:18.300474748+08:00" level=info msg="Geosite Matcher implementation: succinct"
-time="2025-06-18T21:15:18.300565573+08:00" level=info msg="Load GeoSite rule: cn"
-time="2025-06-18T21:15:18.775897437+08:00" level=info msg="Load GeoSite rule: category-ai-chat-!cn"
-time="2025-06-18T21:15:18.796314940+08:00" level=fatal msg="Parse config error: rules[1] [GEOSITE,category-ai-chat-!cn,境外AI] error: load GeoSite data error, failed to decode geodata file: geosite.dat, base error: list category-ai-chat-!cn not found in geosite.dat"
-
-@yeminny
-yeminny commented on Jun 18
-又改回了
-GEOSITE,category-ai!cn,境外AI
-
-GEOSITE,category-ai-chat-!cn,境外AI这个不能用，时间，2025-06-18
-
-@liuran001
-Author
-liuran001 commented on Jun 19
-又改回了 GEOSITE,category-ai!cn,境外AI
-
-GEOSITE,category-ai-chat-!cn,境外AI这个不能用，时间，2025-06-18
-
-@yeminny 改了，它这玩意动不动就改名字，，我都打算把Geosite规则换成yaml规则组了，，，
-
-@Kwisma
-Kwisma commented on Jun 20
-又改回了 GEOSITE,category-ai!cn,境外AI
-GEOSITE,category-ai-chat-!cn,境外AI这个不能用，时间，2025-06-18
-
-@yeminny 改了，它这玩意动不动就改名字，，我都打算把Geosite规则换成yaml规则组了，，，
-
-早该这样做了
-
-@dongfengweixiao
-dongfengweixiao commented on Jun 24 • 
-话说，clash是否能实现劫持？
-比如将services.gradle.org/distributions->mirrors.cloud.tencent.com/gradle/
-
-https://services.gradle.org/distributions/gradle-8.12-all.zip -> https://mirrors.cloud.tencent.com/gradle/gradle-8.12-all.zip
-
-@guotree
-guotree commented on Jul 6
-proxies:
-  - name: '🇺🇸 前置'
-    type: ss
-    server: example.com
-    port: 443
-    cipher: aes-128-gcm
-    password: xxxx-xxxxxxxx-xxxxxxxxx
-    udp: true
-  - name: 🇺🇸 前置 ➡️ ☁️ warp
-    type: wireguard
-    server: engage.cloudflareclient.com
-    port: 2408
-    ip: "172.16.0.2/32"
-    ipv6: "2606:4700:110:84c1:fc16:265c:de8e:2687/128"
-    private-key: "private-key"
-    public-key: "public-key"
-    udp: true
-    reserved: "18l3"
-    mtu: 1280
-    dialer-proxy: "🇺🇸 前置"
-    remote-dns-resolve: true
-    dns:
-      - https://dns.cloudflare.com/dns-query
-大佬，我用warp链式一直是timeout，我哪里没写对呀
-
-@junglezhao
-junglezhao commented on Jul 11
-https://gist.github.com/2045gemini/4aea375b94c60a883f8e6c16ca3875b8 搞了一个js覆写模板，这样可以通过覆写填信息，不手改yaml。 之前好几次点更新把改好yaml更没。 感觉可以在注释里放我这个覆写链接，这样新人用起来比较方便，也支持yaml一键更新，感谢。
-
-本来就可以直接订阅这个然后覆写改自己信息，用不着这么麻烦
-
-一定要填我的邀请码，不填我哭给你看😭.不填不填就不填233！
-
-@MnDsttt
-MnDsttt commented on Jul 18
-请问一下怎么突然不能用了，一直不能连接，但是订阅链接是能用的
-
-@dongfengweixiao
-dongfengweixiao commented on Jul 18
-请问一下怎么突然不能用了，一直不能连接，但是订阅链接是能用的
-
-你这情况自己卜一卦吧。
-
-@iOSleep
-iOSleep commented on Jul 18
-铁子，换成ruleset吧，又改名了
-
-# - GEOSITE,category-ai-!cn,境外AI
-- GEOSITE,category-scholar-!cn,境外AI
-@iOSleep
-iOSleep commented on Jul 18
-请问一下怎么突然不能用了，一直不能连接，但是订阅链接是能用的
-
-看下是不是我上面回复的内容，自己改一下
-
-# - GEOSITE,category-ai-!cn,境外AI
-- GEOSITE,category-scholar-!cn,境外AI
-@liuran001
-Author
-liuran001 commented on Jul 18
-铁子，换成ruleset吧，又改名了
-
-# - GEOSITE,category-ai-!cn,境外AI
-- GEOSITE,category-scholar-!cn,境外AI
-无语
-
-@feimiao
-feimiao commented on Jul 19
-铁子，换成ruleset吧，又改名了
-
-# - GEOSITE,category-ai-!cn,境外AI
-- GEOSITE,category-scholar-!cn,境外AI
-无语
-
-scholar 跟 AI 好像没关系吧
-
-@mensylisir
-mensylisir commented on Jul 27
-热心分享者的懒人包就一次成功，再重新运行本包发现好了，我觉得可能是那几个插件的github镜像被墙了导致的问题，重新部署就会出现这种情况，更新订阅应该不会
-
-我和你有同样的问题，你换的啥包啊
-
-@i-Eureka
-i-Eureka commented 2 weeks ago
-请问，mihomo有办法像mosdns分流dns吗（国内网站解析双栈，国外网站仅解析ipv4）
-
-@dongfengweixiao
-dongfengweixiao commented 7 hours ago • 
-Nikki@openwrt
-最近两天出现不少网站无法访问的情况，查看日志，存在大量的dns相关的问题：
-time="2025-09-18T10:26:33.141220433+08:00" level=error msg="Initialize NTP time failed: dns resolve failed: couldn't find ip"
-time="2025-09-18T10:32:46.348974728+08:00" level=warning msg="[TCP] dial 其他 (match GeoSite/geolocation-!cn) 192.168.1.177:57174 --> push.services.mozilla.com:443 error: dns resolve failed: couldn't find ip"
-
-访问一些其他的网址，也会有类似的提示，请问大家有遇到吗，是如何解决的？
-
-@feimiao
-feimiao commented 7 hours ago
-Nikki@openwrt 最近两天出现不少网站无法访问的情况，查看日志，存在大量的dns相关的问题： time="2025-09-18T10:26:33.141220433+08:00" level=error msg="Initialize NTP time failed: dns resolve failed: couldn't find ip"
-
-访问一些其他的网址，也会有类似的提示，请问大家有遇到吗，是如何解决的？
-
-nameserver-policy 改成下面这样试试：
-
-  nameserver-policy:
-    "geosite:cn,private":
-      - https://doh.pub/dns-query
-      - https://dns.alidns.com/dns-query
-即，删掉了如下内容：
-
-    "geosite:!cn,!private": 
-      - "tls://dns.google"
-      - "tls://cloudflare-dns.com"
-@frankk007
-Comment
- 
-Leave a comment
- 
-Footer
-© 2025 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Community
-Docs
-Contact
-Manage cookies
-Do not share my personal information
