@@ -100,7 +100,7 @@ dns:
   #     - '+.facebook.com'
   #     - '+.youtube.com'
 
-  # 配置查询域名使用的 DNS 服务器
+  # 按域名集合指定解析服务器
   nameserver-policy:
     "geosite:geolocation-!cn":
       - tls://1.1.1.1:853
