@@ -72,7 +72,6 @@ dns:
   enhanced-mode: fake-ip # or redir-host 
   fake-ip-range: 198.18.0.1/16
   nameserver: # 默认 DNS 服务
-     - system
      - 223.5.5.5
      - 119.29.29.29
      #- https://dns.alidns.com/dns-query # 阿里 DoH DNS
@@ -84,7 +83,6 @@ dns:
      - https://8.8.8.8/dns-query
      - https://cloudflare-dns.com/dns-query
      - https://dns.google/dns-query
-     - https://dns.alidns.com/dns-query
   fallback-filter:
      geoip: true 
      geoip-code: CN # 除了 geoip-code 配置的国家 IP, 其他的 IP 结果会被视为污染，geoip-code 配置的国家的结果会直接采用，否则采用 fallback结果
