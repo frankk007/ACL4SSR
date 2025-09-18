@@ -361,6 +361,36 @@ proxy-groups:
       filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|家|回家|home|财新|caixin|cx|港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates)).*",
     }
 
+RuleSet_classical: &RuleSet_classical {type: http, behavior: classical, interval: 43200, format: yaml, proxy: 节点选择}
+RuleSet_domain: &RuleSet_domain {type: http, behavior: domain, interval: 43200, format: yaml, proxy: 节点选择}
+RuleSet_ipcidr: &RuleSet_ipcidr {type: http, behavior: ipcidr, interval: 43200, format: yaml, proxy: 节点选择}
+
+# 订阅规则
+rule-providers:
+  lan_non_ip:
+    <<: *RuleSet_classical
+    url: https://ruleset.skk.moe/Clash/non_ip/lan.txt
+    path: ./rule_set/sukkaw_ruleset/lan_non_ip.txt
+
+  lan_ip:
+    <<: *RuleSet_classical
+    url: https://ruleset.skk.moe/Clash/ip/lan.txt
+    path: ./rule_set/sukkaw_ruleset/lan_ip.txt
+
+  domestic_non_ip:
+    <<: *RuleSet_classical
+    url: https://ruleset.skk.moe/Clash/non_ip/domestic.txt
+    path: ./rule_set/sukkaw_ruleset/domestic_non_ip.txt
+
+  - RULE-SET,domestic_non_ip,DIRECT
+  - RULE-SET,direct_non_ip,DIRECT
+  - RULE-SET,lan_non_ip,DIRECT
+
+  ### IP 类规则
+  - RULE-SET,reject_ip,REJECT
+  - RULE-SET,telegram_ip,✈️ 电报信息
+  - RULE-SET,stream_ip,🇺🇸 - 自动选择
+
 rules:
   ### 非 IP 类规则
   # 若需禁用 QUIC 请取消注释 QUIC 两条规则
