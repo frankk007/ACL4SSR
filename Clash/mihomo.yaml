@@ -344,18 +344,19 @@ rule-providers:
     type: inline
     behavior: domain
     payload:
-      - '.sciencedirect.com'
-      - '.elsevier.com'
-      - '.zotero.org'
-      - '.synology.com'
-      - '.quickconnect.to'
-      - '.quickconnect.cn'
-      - '.m-team.cc'
-      - '.m-team.io'
-      - '.hhanclub.top'
-      - '.hhan.club'
-      - '.open.cd'
-      - '.ptzone.xyz'
+      - '＋.sciencedirect.com'
+      - '＋.elsevier.com'
+      - '＋.zotero.org'
+      - '＋.synology.com'
+      - '＋.myds.me'
+      - '＋.quickconnect.to'
+      - '＋.quickconnect.cn'
+      - '＋.m-team.cc'
+      - '＋.m-team.io'
+      - '＋.hhanclub.top'
+      - '＋.hhan.club'
+      - '＋.open.cd'
+      - '＋.ptzone.xyz'
 
   WeChat:
     <<: *classical_yaml
