@@ -282,6 +282,7 @@ proxy-groups:
   # - { name: WARP前置, <<: *pr, exclude-type: "wireguard" }
   - { name: 财新传媒, <<: *select, filter: "(?i)财新|caixin|cx", proxies: [DIRECT] }
   - { name: 人工智能, type: select, proxies: [手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区] }
+  - { name: 苹果服务, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
 # - { name: Google, <<: *pr }
 # - { name: Telegram, <<: *pr }
 # - { name: Twitter, <<: *pr }
@@ -294,14 +295,13 @@ proxy-groups:
 # - { name: 巴哈姆特, <<: *pr }
   - { name: YouTube, <<: *pr }
   - { name: NETFLIX, <<: *pr }
+  - { name: OneDrive, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
+  - { name: 微软服务, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
 # - { name: TikTok, <<: *pr }
 # - { name: Spotify, <<: *pr }
 # - { name: Github, <<: *pr }
   - { name: Steam, <<: *pr }
   - { name: 海外娱乐, <<: *pr }
-  - { name: 苹果服务, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
-  - { name: OneDrive, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
-  - { name: 微软服务, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
   - { name: 广告拦截, type: select, proxies: [REJECT, DIRECT, 节点选择] }
   - { name: 漏网之鱼, <<: *pr }
 
@@ -412,7 +412,7 @@ rules:
   - GEOIP,netflix,NETFLIX
   - GEOIP,telegram,节点选择
   - GEOIP,twitter,节点选择
-# - GEOIP,CN,DIRECT
+  - GEOIP,CN,DIRECT
 
   ### IP 类规则
   - IP-CIDR,10.0.0.0/8,DIRECT
