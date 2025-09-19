@@ -187,10 +187,9 @@ dns:
   # 默认 DNS, 用于解析 DNS 服务器 的域名
   # 只能使用纯 IP 地址，可使用加密 DNS
   default-nameserver:
-    - 114.114.114.114 # 南京信风
-    - 8.8.8.8
-    - tls://1.12.12.12:853 # 腾讯 DoT
-    - tls://223.5.5.5:853
+    - 114.114.114.114
+    - 223.5.5.5
+    - 119.29.29.29
     - system # append DNS server from system configuration. If not found, it would print an error log and skip.
   
   enhanced-mode: redir-host # or fake-ip
@@ -215,17 +214,24 @@ dns:
      
   # 默认的域名解析服务器
   nameserver: 
+     - https://dns.alidns.com/dns-query
+     - https://doh.pub/dns-query
+     - https://doh.360.cn/dns-query
      - system
-     - 223.5.5.5
-     - 119.29.29.29
      
   # 指定域名查询的解析服务器，优先级高
+  # 带ip的dns服务器写死地址，没有域名的就近调度优势
   nameserver-policy:
     "geosite:!cn":
-      - tls://1.1.1.1:853
-      - tls://8.8.8.8:853
-      - https://cloudflare-dns.com/dns-query
       - https://dns.google/dns-query
+      - https://cloudflare-dns.com/dns-query
+      - https://dns.quad9.net/dns-query
+      - tls://8.8.8.8:853 
+      - tls://1.1.1.1:853
+      - tls://9.9.9.9:853
+      - https://8.8.8.8/dns-query
+      - https://1.1.1.1/dns-query
+      - https://9.9.9.9/dns-query
 
 # 多入站端口设置
 # listeners:
