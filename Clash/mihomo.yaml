@@ -193,7 +193,8 @@ dns:
      - "*.blzstatic.cn"
      - "*.battle.net"   
      
-  # 匹配到直连规则的域名解析服务器，有些国外网站有国内节点，适合直连，但 policy 解析到一个国外 ip 就很尴尬
+  # 匹配到直连规则的域名解析服务器，有些国外网站有国内节点，适合直连，但 policy 解析到一个国外 ip 就很尴尬，尤其是!cn组域名也比较宽泛
+  # 此时需要一个专门适用于直连规则的国内 dns 再次解析以获取最优 ip，这样 dns 解析和建立连接就都拉回了国内，只需要不断完善规则就可以了
   direct-nameserver:
      - https://223.5.5.5/dns-query
      - https://doh.pub/dns-query
