@@ -77,7 +77,7 @@ proxy-providers:
   订阅一:
     <<: *p
     # path: ./proxy_provider/sub.yaml
-    url: "https://gist.githubusercontent.com/frankk007/1b2c539c42f8b41b91427a25257ec8a4/raw/clash"
+    url: "写入链接"
     # 如需要为该订阅组节点添加前缀，取消下面两行注释
     # override:
       # additional-prefix: "[订阅一]"
@@ -348,9 +348,12 @@ proxy-groups:
     }
 
 rule-anchor:
-classical: &classical {type: http, behavior: classical, interval: 86400, format: txt, proxy: 节点选择}
-domain: &domain {type: http, behavior: domain, interval: 86400, format: yaml, proxy: 节点选择}
-ip: &ip {type: http, behavior: ipcidr, interval: 86400, format: yaml, proxy: 节点选择}
+  classical_text: &classical_text {type: http, behavior: classical, interval: 86400, format: text, proxy: 节点选择}
+  classical_yaml: &classical_yaml {type: http, behavior: classical, interval: 86400, format: yaml, proxy: 节点选择}
+
+  domain_text: &domain_text {type: http, behavior: domain, interval: 86400, format: text, proxy: 节点选择}
+  domain_yaml: &domain_yaml {type: http, behavior: domain, interval: 86400, format: yaml, proxy: 节点选择}
+  ip: &ip {type: http, behavior: ipcidr, interval: 86400, format: yaml, proxy: 节点选择}
 
 # 订阅规则
   # 秋风广告拦截规则
@@ -358,12 +361,12 @@ ip: &ip {type: http, behavior: ipcidr, interval: 86400, format: yaml, proxy: 节
   # 由于 Anti-AD 误杀率高，本项目已在 1.11-241024 版本更换秋风广告规则
 rule-providers:    
     LocalAreaNetwork:
-    <<: *classical
+    <<: *classical_text
     path: ./rule_provider/LocalAreaNetwork.txt
     url: https://raw.githubusercontent.com/frankk007/ACL4SSR/refs/heads/doctor/Clash/LocalAreaNetwork.txt
     
     AWAvenue-Ads:
-    <<: *domain
+    <<: *domain_yaml
     path: ./rule_provider/AWAvenue-Ads.yaml
     url: "https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml"  
     
@@ -383,17 +386,17 @@ rule-providers:
       - '*ptzone*'
     
     WeChat:
-    <<: *classical
-    path: ./rule_provider/WeChat.txt
-    url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/WeChat.txt
+    <<: *classical_yaml
+    path: ./rule_provider/WeChat.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/WeChat/WeChat_No_Resolve.yaml
     
     PayPal:
-    <<: *classical
+    <<: *domain_yaml
     path: ./rule_provider/PayPal.yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/PayPal/PayPal.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PayPal/PayPal.yaml
     
     财新传媒:
-    <<: *classical
+    <<: *classical_text
     path: ./rule_provider/Caixin.txt
     url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/Caixin.txt
 
@@ -441,7 +444,6 @@ rules:
   - GEOIP,twitter,节点选择
 # - GEOIP,CN,DIRECT
 
- 
 
   ### IP 类规则
   - IP-CIDR,10.0.0.0/8,DIRECT
