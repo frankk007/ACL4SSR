@@ -170,7 +170,7 @@ tun:
   stack: system  # 可用值： system/gvisor/mixed
   auto-route: true # 自动设置全局路由，可以自动将全局流量路由进入 tun 网卡
   auto-detect-interface: true # 自动选择流量出口接口，多出口网卡同时连接的设备建议手动指定出口网卡
-  dns-hijack:
+  dns-hijack: # 拦截所有发往 53 端口的 DNS 流量，并交给 Clash 内置 DNS（7874）处理
     - any:53
     - tcp://any:53
   strict-route: true # 可以防止地址泄漏，但可能会使某些应用程序（如 VirtualBox）在某些情况下无法正常工作
