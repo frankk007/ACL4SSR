@@ -101,22 +101,6 @@ proxy-providers:
 # 若需修改请参阅文档 https://wiki.metacubex.one
 # --------------------------------------------------
 
-# 规则订阅
-rule-providers:
-  # 秋风广告拦截规则
-  # https://awavenue.top
-  # 由于 Anti-AD 误杀率高，本项目已在 1.11-241024 版本更换秋风广告规则
-  AWAvenue-Ads:
-    type: http
-    behavior: domain
-    format: yaml
-    # path可为空(仅限clash.meta 1.15.0以上版本)
-    path: ./rule_provider/AWAvenue-Ads.yaml
-    url: "https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml"
-    interval: 600
-    https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Lan/Lan.yaml
-    https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/PayPal/PayPal.yaml
-
 mode: rule
 # ipv6 支持
 ipv6: true
@@ -143,7 +127,7 @@ geodata-mode: true
 geox-url:
   geoip: "https://ghfast.top/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat"
   geosite: "https://testingcf.jsdelivr.net/gh/v2fly/domain-list-community@release/dlc.dat"
-  # geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+# geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
   mmdb: "https://ghfast.top/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb"
 
 # 进程匹配模式
@@ -224,7 +208,7 @@ dns:
     - tls://223.5.5.5:853
     - system # append DNS server from system configuration. If not found, it would print an error log and skip.
   
-enhanced-mode: redir-host # or fake-ip
+  enhanced-mode: redir-host # or fake-ip
   # 路由器个人建议使用 redir-host 以最佳兼容性
   # 其他设备可以使用 fake-ip
   fake-ip-range: 198.18.0.1/16 # fake-ip 池设置
@@ -364,20 +348,29 @@ proxy-groups:
     }
 
 rule-anchor:
-classical: &classical {type: http, behavior: classical, interval: 86400, format: yaml, proxy: 节点选择}
+classical: &classical {type: http, behavior: classical, interval: 86400, format: txt, proxy: 节点选择}
 domain: &domain {type: http, behavior: domain, interval: 86400, format: yaml, proxy: 节点选择}
 ip: &ip {type: http, behavior: ipcidr, interval: 86400, format: yaml, proxy: 节点选择}
 
 # 订阅规则
-rule-providers:
-
+  # 秋风广告拦截规则
+  # https://awavenue.top
+  # 由于 Anti-AD 误杀率高，本项目已在 1.11-241024 版本更换秋风广告规则
+rule-providers:    
+    LocalAreaNetwork:
+    <<: *classical
+    path: ./rule_provider/LocalAreaNetwork.txt
+    url: https://raw.githubusercontent.com/frankk007/ACL4SSR/refs/heads/doctor/Clash/LocalAreaNetwork.txt
+    
+    AWAvenue-Ads:
+    <<: *domain
+    path: ./rule_provider/AWAvenue-Ads.yaml
+    url: "https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml"  
+    
     abcDirect:
     type: inline
     behavior: domain # classical / ipcidr
     payload:
-      - '.blogger.com'
-      - '*.*.microsoft.com'
-      - 'books.itunes.apple.com'
       - 'sciencedirect.com'
       - '.elsevier.com'
       - '.zotero.org'
@@ -391,24 +384,31 @@ rule-providers:
     
     WeChat:
     <<: *classical
+    path: ./rule_provider/WeChat.txt
     url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/WeChat.txt
-    path: ./rule_set/WeChat.txt      
-      
+    
+    PayPal:
+    <<: *classical
+    path: ./rule_provider/PayPal.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/PayPal/PayPal.yaml
+    
     财新传媒:
     <<: *classical
-    url: https://raw.githubusercontent.com/frankk007/ACL4SSR/refs/heads/doctor/Clash/Caixin.yaml
-    path: ./rule_set/Caixin.yaml
+    path: ./rule_provider/Caixin.txt
+    url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/Caixin.txt
 
 rules:
   - IP-CIDR,192.168.2.0/24,no-resolve,回家服务
-  - RULE-SET,abcDirect,Direct
-  - RULE-SET,Wechat,Direct
+  - RULE-SET,LocalAreaNetwork,DIRECT
   - DOMAIN-SUFFIX,adobe.io,REJECT
   # 若需禁用 QUIC 请取消注释 QUIC 两条规则
   # 防止 YouTube 等使用 QUIC 导致速度不佳, 禁用 443 端口 UDP 流量（拦截所有指向 非中国 IP 的 UDP 443（QUIC）流量）
   - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT
   - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOIP,CN))),REJECT
   - RULE-SET,AWAvenue-Ads,广告拦截
+  - RULE-SET,abcDirect,DIRECT
+  - RULE-SET,WeChat,DIRECT
+  - RULE-SET,PayPal,DIRECT
   - GEOSITE,geolocation-!cn@cn,DIRECT # DIRECT 为直连分组，可以改为你自己的分组
 # - GEOSITE,bilibili,哔哩哔哩
   - RULE-SET,财新传媒,财新传媒
@@ -426,7 +426,7 @@ rules:
 # - GEOSITE,spotify,Spotify
   - GEOSITE,steam@cn,DIRECT
   - GEOSITE,steam,Steam
-  - GEOSITE,scategory-entertainment,海外娱乐 # 包含游戏、二次元、流媒体直播、音乐播客、动漫、小说、图片、影视数据库、成人等很多子集
+  - GEOSITE,category-entertainment,海外娱乐 # 包含游戏、二次元、流媒体直播、音乐播客、动漫、小说、图片、影视数据库、成人等很多子集
 # - GEOSITE,category-games-!cn,节点选择
   - GEOSITE,onedrive,OneDrive
   - GEOSITE,microsoft,微软服务
