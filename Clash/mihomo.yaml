@@ -16,22 +16,13 @@
 # false 是禁用
 
 # 分组
-pr:
-  &pr {
-    type: select,
-    proxies:
-      [
-        节点选择,
-        手动选择,
-        香港,
-        台湾,
-        日本,
-        新加坡,
-        美国,
-        其它地区,
-        DIRECT,
-      ],
-  }
+pr: &pr { type: select, proxies: [节点选择, 手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, DIRECT] }
+
+urltest: &use { type: url-test, use: [订阅一], filter: ".*" }
+# use: &use { type: url-test, use: [订阅一, 订阅二, 本地配置], filter: ".*" }
+
+select: &diy { type: select, use: [订阅一], filter: ".*" }
+
 # 延迟检测 URL
 p: &p
   type: http
@@ -58,25 +49,6 @@ p: &p
 
 # 如果你需要使用大于两个机场，在下方 `use` 处添加 `订阅三` （名字可以自己取），然后在 `proxy-providers` 照例添加订阅链接即可
 # 反之，如果你只需要使用一个，那么将 `订阅二` 前添加 `#` 进行注释即可
-
-# 订阅名，记得修改成自己的
-# 添删订阅在这里和下方订阅链接依葫芦画瓢就行
-use: &use
-  # 如果不希望自动切换请将下面两行注释对调
-  # type: select
-  type: url-test
-  use:
-    - 订阅一
-    # - 订阅二
-    # - 本地配置
-diy: &diy
-  # 如果不希望自动切换请将下面两行注释对调
-  type: select
-  # type: url-test
-  diy:
-    - 订阅一
-    # - 订阅二
-    # - 本地配置
 
 # 订阅链接
 # 对于订阅来说，path 为选填项，但建议启用
@@ -201,7 +173,6 @@ tun:
   auto-detect-interface: true
 
 # dns 设置
-# 已配置 ipv6
 dns:
   cache-algorithm: arc
   enable: true # 关闭将使用系统 DNS
@@ -291,13 +262,13 @@ proxy-groups:
       proxies:
         [香港, 台湾, 日本, 新加坡, 美国, 手动选择, 其它地区, DIRECT],
     }
-  - { name: 手动选择, <<: *diy, filter: ".*" }
-  - { name: 回家服务, <<: *diy, filter: "(?i)家|回家|home", DIRECT }
+  - { name: 手动选择, <<: *diy }
+  - { name: 回家服务, <<: *diy, filter: "(?i)家|回家|home", proxies: [DIRECT] }
   # 这里的 dns 指海外解析 dns 走的节点，一般跟随节点选择即可
 # - { name: dns, <<: *pr }
   # WARP 配置链式出站
   # - { name: WARP前置, <<: *pr, exclude-type: "wireguard" }
-  - { name: 财新传媒, <<: *diy, filter: "(?i)财新|caixin|cx", DIRECT }
+  - { name: 财新传媒, <<: *diy, filter: "(?i)财新|caixin|cx", proxies: [DIRECT] }
   - { name: 人工智能, <<: *pr }
   # Apple 推荐走全局直连
   - { name: 苹果服务, <<: *pr }
@@ -344,6 +315,7 @@ rule-anchor:
   domain_text: &domain_text {type: http, behavior: domain, interval: 86400, format: text, proxy: 节点选择}
   domain_yaml: &domain_yaml {type: http, behavior: domain, interval: 86400, format: yaml, proxy: 节点选择}
   ip: &ip {type: http, behavior: ipcidr, interval: 86400, format: yaml, proxy: 节点选择}
+  
 # 订阅规则
   # 秋风广告拦截规则
   # https://awavenue.top
@@ -436,7 +408,6 @@ rules:
   - GEOIP,telegram,节点选择
   - GEOIP,twitter,节点选择
 # - GEOIP,CN,DIRECT
-
 
   ### IP 类规则
   - IP-CIDR,10.0.0.0/8,DIRECT
