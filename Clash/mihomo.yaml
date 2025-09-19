@@ -283,7 +283,7 @@ proxy-groups:
       proxies:
         [香港, 台湾, 日本, 新加坡, 美国, 手动选择, 其它地区, DIRECT],
     }
-  - { name: 手动选择, <<: *use } 
+  - { name: 手动选择, type: select, use: [订阅一], filter: ".*" }
   - { name: 回家服务, <<: *use, filter: "(?i)家|回家|home" }  
   # 这里的 dns 指海外解析 dns 走的节点，一般跟随节点选择即可
 # - { name: dns, <<: *pr }
@@ -387,7 +387,7 @@ rule-providers:
     url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/Caixin.txt
 
 rules:
-  - IP-CIDR,192.168.2.0/24,no-resolve,回家服务
+  - IP-CIDR,192.168.2.0/24,回家服务,no-resolve
   - RULE-SET,LocalAreaNetwork,DIRECT
   - DOMAIN-SUFFIX,adobe.io,REJECT
   # 若需禁用 QUIC 请取消注释 QUIC 两条规则
