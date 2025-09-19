@@ -216,6 +216,7 @@ dns:
      
   # 默认的域名解析服务器
   nameserver: 
+     - https://223.5.5.5/dns-query
      - https://dns.alidns.com/dns-query
      - https://doh.pub/dns-query
      - https://doh.360.cn/dns-query
@@ -228,12 +229,12 @@ dns:
       - https://dns.google/dns-query
       - https://cloudflare-dns.com/dns-query
       - https://dns.quad9.net/dns-query
-      - tls://8.8.8.8:853 
-      - tls://1.1.1.1:853
-      - tls://9.9.9.9:853
       - https://8.8.8.8/dns-query
       - https://1.1.1.1/dns-query
       - https://9.9.9.9/dns-query
+      - tls://8.8.8.8:853 
+      - tls://1.1.1.1:853
+      - tls://9.9.9.9:853
 
 # 多入站端口设置
 # listeners:
