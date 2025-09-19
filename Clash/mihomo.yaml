@@ -17,6 +17,22 @@
 # 订阅链接
 # 对于订阅来说，path 为选填项，但建议启用
 # 本地配置可以只填 path
+
+# 延迟检测 URL
+p: &p
+  type: http
+  # 自动更新订阅时间，单位为秒
+  interval: 3600
+  health-check:
+    enable: true
+    url: https://cp.cloudflare.com
+    # 节点连通性检测时间，单位为秒
+    interval: 300
+    # 节点超时延迟，单位为毫秒
+    timeout: 1000
+    # 节点自动切换差值，单位为毫秒
+    tolerance: 100
+    
 proxy-providers:
   订阅一:
     <<: *p
@@ -46,21 +62,6 @@ pr: &pr { type: select, proxies: [节点选择, 手动选择, 香港, 台湾, �
 urltest: &urltest { type: url-test, use: [订阅一], filter: ".*" }
 # use: &use { type: url-test, use: [订阅一, 订阅二, 本地配置], filter: ".*" }
 select: &select { type: select, use: [订阅一], filter: ".*" }
-
-# 延迟检测 URL
-p: &p
-  type: http
-  # 自动更新订阅时间，单位为秒
-  interval: 3600
-  health-check:
-    enable: true
-    url: https://cp.cloudflare.com
-    # 节点连通性检测时间，单位为秒
-    interval: 300
-    # 节点超时延迟，单位为毫秒
-    timeout: 1000
-    # 节点自动切换差值，单位为毫秒
-    tolerance: 100
 
 mode: rule
 # ipv6 支持
