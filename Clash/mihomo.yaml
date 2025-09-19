@@ -232,7 +232,7 @@ dns:
      
   # 指定域名查询的解析服务器，优先级高
   nameserver-policy:
-    "geosite:!cn":
+    "geosite:geolocation-!cn":
       - https://dns.google/dns-query
       - https://cloudflare-dns.com/dns-query
       - https://dns.quad9.net/dns-query
@@ -352,7 +352,7 @@ rule-providers:
       - '+.elsevier.com'
       - '+.zotero.org'
       - '+.synology.com'
-      - '+.myds.me'
+      - '+.myds.me' # 如不配置，则匹配兜底规则，当兜底proxy时，影响群晖 DDNS，解析出代理节点ip，而非实际公网ip
       - '+.quickconnect.to'
       - '+.quickconnect.cn'
       - '+.m-team.cc'
@@ -370,7 +370,7 @@ rule-providers:
   PayPal:
     <<: *classical_yaml
     path: ./rule_provider/PayPal.yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PayPal/PayPal.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PayPal/PayPal_No_Resolve.yaml
 
   财新传媒:
     <<: *classical_text
@@ -409,8 +409,8 @@ rules:
 # - GEOSITE,category-games-!cn,节点选择
   - GEOSITE,category-entertainment,海外娱乐 # 包含游戏、二次元、流媒体直播、音乐播客、动漫、小说、图片、影视数据库、成人等很多子集
   - GEOSITE,geolocation-!cn@cn,DIRECT
-  - GEOSITE,geolocation-!cn,漏网之鱼 
-  - GEOSITE,geolocation-cn@!cn,漏网之鱼
+  - GEOSITE,geolocation-!cn,节点选择
+  - GEOSITE,geolocation-cn@!cn,节点选择
 # - GEOSITE,geolocation-cn,DIRECT
 # - GEOSITE,tld-cn,DIRECT # 所有以 .cn 为后缀的域名
   - GEOSITE,cn,DIRECT # 包含上面两个子集 include:tld-cn与include:geolocation-cn
