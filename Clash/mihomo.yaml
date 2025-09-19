@@ -137,9 +137,9 @@ geox-url:
 # off 不匹配进程，推荐在路由器上使用此模式
 find-process-mode: strict
 
-# 缓解移动设备耗电问题改为1800s
+# 缓解移动设备耗电问题改为1800
 # https://github.com/vernesong/OpenClash/issues/2614
-keep-alive-interval: 15s
+keep-alive-interval: 15
 
 # 全局客户端指纹
 global-client-fingerprint: random # 随机指纹
