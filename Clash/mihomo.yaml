@@ -334,8 +334,8 @@ rules:
   - RULE-SET,Anti-Ads,广告拦截
   - RULE-SET,abcDirect,DIRECT
   - RULE-SET,WeChat,DIRECT
-  - GEOSITE,apple,苹果服务
   - RULE-SET,PayPal,DIRECT
+  - GEOSITE,apple,苹果服务
 # - GEOSITE,bilibili,哔哩哔哩
   - RULE-SET,财新传媒,财新传媒
   - GEOSITE,category-ai-!cn,人工智能
@@ -354,6 +354,7 @@ rules:
   - GEOSITE,microsoft,微软服务
 # - GEOSITE,category-games-!cn,节点选择
   - GEOSITE,category-entertainment,海外娱乐 # 包含游戏、二次元、流媒体直播、音乐播客、动漫、小说、图片、影视数据库、成人等很多子集
+  - GEOSITE,category-pt,DIRECT
   - GEOSITE,geolocation-!cn@cn,DIRECT
   - GEOSITE,geolocation-!cn,节点选择
   - GEOSITE,geolocation-cn@!cn,节点选择
