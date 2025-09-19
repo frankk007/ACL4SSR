@@ -1,6 +1,6 @@
 # 改分组锚点，全部节点改手动选择，删除自动选择，注释订阅2，改geosite库，1800改15，改sniffer，改tun，改dns
 # 添加回家、财新、海外娱乐，改新加坡和其他地区过滤条件，策略组大改，添加订阅规则锚点，添加rules-set，改rules
-# 20250919
+# 20250919 此配置无dns泄露
 # mihomo (Clash Meta) 懒人配置
 # 版本 V1.22-250718
 # https://gist.github.com/liuran001/5ca84f7def53c70b554d3f765ff86a33
