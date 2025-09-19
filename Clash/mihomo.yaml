@@ -337,25 +337,28 @@ rule-anchor:
   domain_text: &domain_text {type: http, behavior: domain, interval: 86400, format: text, proxy: 节点选择}
   domain_yaml: &domain_yaml {type: http, behavior: domain, interval: 86400, format: yaml, proxy: 节点选择}
   ip: &ip {type: http, behavior: ipcidr, interval: 86400, format: yaml, proxy: 节点选择}
-
 # 订阅规则
   # 秋风广告拦截规则
   # https://awavenue.top
   # 由于 Anti-AD 误杀率高，本项目已在 1.11-241024 版本更换秋风广告规则
-rule-providers:    
-    LocalAreaNetwork:
+# 订阅规则
+# 秋风广告拦截规则
+# https://awavenue.top
+# 由于 Anti-AD 误杀率高，本项目已在 1.11-241024 版本更换秋风广告规则
+rule-providers:
+  LocalAreaNetwork:
     <<: *classical_text
     path: ./rule_provider/LocalAreaNetwork.txt
     url: https://raw.githubusercontent.com/frankk007/ACL4SSR/refs/heads/doctor/Clash/LocalAreaNetwork.txt
-    
-    AWAvenue-Ads:
+
+  AWAvenue-Ads:
     <<: *domain_yaml
     path: ./rule_provider/AWAvenue-Ads.yaml
-    url: "https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml"  
-    
-    abcDirect:
+    url: https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml
+
+  abcDirect:
     type: inline
-    behavior: domain # classical / ipcidr
+    behavior: domain
     payload:
       - 'sciencedirect.com'
       - '.elsevier.com'
@@ -367,18 +370,18 @@ rule-providers:
       - 'hhan.club'
       - '*open.cd*'
       - '*ptzone*'
-    
-    WeChat:
+
+  WeChat:
     <<: *classical_yaml
     path: ./rule_provider/WeChat.yaml
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/WeChat/WeChat_No_Resolve.yaml
-    
-    PayPal:
-    <<: *domain_yaml
+
+  PayPal:
+    <<: *classical_yaml
     path: ./rule_provider/PayPal.yaml
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PayPal/PayPal.yaml
-    
-    财新传媒:
+
+  财新传媒:
     <<: *classical_text
     path: ./rule_provider/Caixin.txt
     url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/Caixin.txt
