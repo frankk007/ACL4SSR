@@ -1,4 +1,4 @@
-# 改分组锚点，全部节点改手动选择，删除自动选择，，注释订阅2，改geosite库，1800改15，改sniffer，改tun，改dns
+# 改分组锚点，全部节点改手动选择，删除自动选择，注释订阅2，改geosite库，1800改15，改sniffer，改tun，改dns
 # 添加回家、财新、海外娱乐，改新加坡和其他地区过滤条件，策略组大改，添加订阅规则锚点，添加rules-set，改rules
 # 20250919
 # mihomo (Clash Meta) 懒人配置
@@ -111,6 +111,8 @@ geox-url:
   geosite: "https://testingcf.jsdelivr.net/gh/v2fly/domain-list-community@release/dlc.dat"
 # geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
   mmdb: "https://ghfast.top/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb"
+geo-auto-update: true
+geo-update-interval: 24
 
 # 进程匹配模式
 # 路由器上请设置为 off
