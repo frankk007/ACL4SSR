@@ -59,7 +59,7 @@ proxy-providers:
   订阅一:
     <<: *p
     # path: ./proxy_provider/sub.yaml
-    url: "https://gist.githubusercontent.com/frankk007/1b2c539c42f8b41b91427a25257ec8a4/raw/clash"
+    url: "https://gist.githubusercontent.com/frankk007/1b2c539c42f8b41b91427a25257ec8a4/raw"
     # 如需要为该订阅组节点添加前缀，取消下面两行注释
     # override:
       # additional-prefix: "[订阅一]"
