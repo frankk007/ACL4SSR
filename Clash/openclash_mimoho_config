@@ -1,6 +1,5 @@
 #在订阅管理中，直接编辑，然后 保存配置 ➡ 应用配置，也可以在openclash覆写设置中修改。
 #openclash覆写设置 - meta设置，勾选启动 tcp 并发、统一延迟，开启域名嗅探。DNS监听端口号已改为7874
-#⚠️字段拷贝进openclash修改配置后，注意检查首页的运行配置对不对，遇到过nameserver-policy没生效，openclash自动补了fallback的情况。。。。
 #在规则附加中，可以添加自定义规则，支持yaml和txt规则格式，具体规则在 https://github.com/blackmatrix7/ios_rule_script/tree/master/rule 取需
 #fallback中科普了dns服务器类型，记录了常用加密dns
 #mimoho 快捷配置 https://wiki.metacubex.one/example/conf 有两种分流形式，GeoX (geosite/geoip) → 依赖数据库，Rule-Set (远程规则集) → 拉远程订阅，可混合使用
