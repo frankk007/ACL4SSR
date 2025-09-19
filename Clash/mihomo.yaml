@@ -69,6 +69,14 @@ use: &use
     - 订阅一
     # - 订阅二
     # - 本地配置
+diy: &diy
+  # 如果不希望自动切换请将下面两行注释对调
+  type: select
+  # type: url-test
+  diy:
+    - 订阅一
+    # - 订阅二
+    # - 本地配置
 
 # 订阅链接
 # 对于订阅来说，path 为选填项，但建议启用
@@ -283,14 +291,13 @@ proxy-groups:
       proxies:
         [香港, 台湾, 日本, 新加坡, 美国, 手动选择, 其它地区, DIRECT],
     }
-  - { name: 手动选择, type: select, use: [订阅一], filter: ".*" }
-  - { name: 回家服务, <<: *use, filter: "(?i)家|回家|home" }  
+  - { name: 手动选择, <<: *diy, filter: ".*" }
+  - { name: 回家服务, <<: *diy, filter: "(?i)家|回家|home", proxies: [DIRECT] }
   # 这里的 dns 指海外解析 dns 走的节点，一般跟随节点选择即可
 # - { name: dns, <<: *pr }
   # WARP 配置链式出站
   # - { name: WARP前置, <<: *pr, exclude-type: "wireguard" }
-
-  - { name: 财新传媒, <<: *use, filter: "(?i)财新|caixin|cx" }
+  - { name: 财新传媒, <<: *diy, filter: "(?i)财新|caixin|cx", proxies: [DIRECT] }
   - { name: 人工智能, <<: *pr }
   # Apple 推荐走全局直连
   - { name: 苹果服务, <<: *pr }
