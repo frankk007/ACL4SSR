@@ -381,10 +381,10 @@ rules:
   - RULE-SET,AWAvenue-Ads,广告拦截
   - RULE-SET,abcDirect,DIRECT
   - RULE-SET,WeChat,DIRECT
+  - GEOSITE,apple,苹果服务
   - RULE-SET,PayPal,DIRECT
   - GEOSITE,geolocation-!cn@cn,DIRECT
 # - GEOSITE,bilibili,哔哩哔哩
-  - GEOSITE,apple,苹果服务
   - RULE-SET,财新传媒,财新传媒
   - GEOSITE,category-ai-!cn,人工智能
   - GEOSITE,github,节点选择
