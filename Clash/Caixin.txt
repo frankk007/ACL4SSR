@@ -1,12 +1,9 @@
 # Clash 规则集配置文件
-# 名称: 财新网及相关服务规则集
-# 类型: txt
+# 名称: 财新网规则集
+# 类型: domain_text
 
 # 财新网域名规则
 +.caixin.cn
 +.caixin.com
 +.caixindata.com
 +.ccxe.com.cn
-
-
-
