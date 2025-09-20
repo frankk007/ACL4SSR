@@ -194,19 +194,28 @@ dns:
   fake-ip-range: 198.18.0.1/16 # fake-ip 池设置
   # fakeip 过滤，以下域名解析不采用 fake-ip 方式，这些域名相关的解析请求将会返回它们真实的 IP 地址
   fake-ip-filter:
-     - "*.lan"
-     - localhost.ptlogin2.qq.com
-     - +.srv.nintendo.net
-     - +.stun.playstation.net
-     - +.msftconnecttest.com
-     - +.msftncsi.com
-     - +.xboxlive.com
-     - msftconnecttest.com
-     - xbox.*.microsoft.com
-     - "*.battlenet.com.cn"
-     - "*.battlenet.com"
-     - "*.blzstatic.cn"
-     - "*.battle.net"   
+    - +.m2m
+    - injections.adguard.org
+    - local.adguard.org
+    - +.bogon
+    - +.lan
+    - +.local
+    - +.internal
+    - +.localdomain
+    - home.arpa
+    - 127.0.0.1.sslip.io
+    - 127.atlas.skk.moe
+    - dns.msftncsi.com
+    - "*.srv.nintendo.net"
+    - "*.stun.playstation.net"
+    - xbox.*.microsoft.com
+    - "*.xboxlive.com"
+    - "*.turn.twilio.com"
+    - "*.stun.twilio.com"
+    - stun.syncthing.net
+    - stun.*
+    - "*.sslip.io"
+    - "*.nip.io" 
      
   # 匹配到直连规则的域名解析服务器，有些国外网站有国内节点，适合直连，但 policy 解析到一个国外 ip 就很尴尬，尤其是!cn组域名也比较宽泛
   # 此时需要一个专门适用于直连规则的国内 dns 再次解析以获取最优 ip，这样 dns 解析和建立连接就都拉回了国内，只需要不断完善规则就可以了
@@ -257,7 +266,6 @@ proxy-groups:
   # 下面两个看需求启用，打开之后会代理全站流量，可能导致部分版权视频反而无法播放或视频播放速度缓慢
   # 下面 rules 两条也要启用
 # - {name: 哔哩哔哩, type: select, proxies: [DIRECT,香港, 台湾] }
-# - {name: 哔哩东南亚, <<: *pr}
 # - { name: 巴哈姆特, <<: *pr }
   - { name: YouTube, <<: *pr }
   - { name: NETFLIX, <<: *pr }
@@ -331,8 +339,8 @@ rule-providers:
     path: ./rule_provider/PayPal.yaml
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PayPal/PayPal_No_Resolve.yaml
 
-  财新传媒:
-    <<: *classical_text
+  Caixin:
+    <<: *domain_text
     path: ./rule_provider/Caixin.txt
     url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/Caixin.txt
 
@@ -350,7 +358,7 @@ rules:
   - RULE-SET,PayPal,DIRECT
   - GEOSITE,apple,苹果服务
 # - GEOSITE,bilibili,哔哩哔哩
-  - RULE-SET,财新传媒,财新传媒
+  - RULE-SET,Caixin,财新传媒
   - GEOSITE,category-ai-!cn,人工智能
   - GEOSITE,github,节点选择
   - GEOSITE,twitter,节点选择
