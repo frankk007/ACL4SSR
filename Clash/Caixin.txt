@@ -13,16 +13,6 @@ DOMAIN-SUFFIX,vod.volcengineapi.com
 DOMAIN-SUFFIX,assets.giocdn.com
 DOMAIN-SUFFIX,sentry.bxtdata.com
 
-# 示例规则
-DOMAIN-SUFFIX,google.com
-DOMAIN-KEYWORD,google
-DOMAIN,ad.com
-SRC-IP-CIDR,192.168.1.201/32
-IP-CIDR,127.0.0.0/8
-GEOIP,CN
-DST-PORT,80
-SRC-PORT,7777
-
 # IP-CIDR 规则 (带有 no-resolve 参数)
 IP-CIDR,36.35.32.18/32,no-resolve
 IP-CIDR,36.35.32.19/32,no-resolve
