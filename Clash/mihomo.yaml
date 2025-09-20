@@ -178,6 +178,9 @@ tun:
 dns:
   cache-algorithm: arc
   enable: true # 关闭将使用系统 DNS
+  use-hosts: true
+  use-system-hosts: true
+  respect-rules: false
   listen: 0.0.0.0:7874 # 开启 DNS 服务器监听
   ipv6: false # false 将返回 AAAA 的空结果
   
@@ -238,13 +241,29 @@ dns:
          
   # 指定域名查询的解析服务器，优先级高
   nameserver-policy:
-    "geosite:cn":
+    ## 以下域名都在中国提供服务，配置了dns和rule
+    "geosite:cn,private,apple,synology,paypal,microsoft@cn,category-games@cn,elsevier,sciencedirect,category-pt":
       - https://223.5.5.5/dns-query
       - https://doh.pub/dns-query
       - system
     # - https://dns.alidns.com/dns-query
     # - https://doh.360.cn/dns-query
-      
+    
+    ## WeChat 为 rule-providers 中的名为 WeChat 规则订阅，
+    ## 且 behavior 必须为 domain/classical，当为 classical 时仅会生效域名类规则
+    "rule-set:WeChat": https://doh.pub/dns-query
+    
+    "geosite:geolocation-!cn":
+      - https://8.8.8.8/dns-query
+      - https://cloudflare-dns.com/dns-query
+      - tls://9.9.9.9:853
+    # - https://dns.google/dns-query
+    # - https://dns.quad9.net/dns-query
+    # - https://1.1.1.1/dns-query
+    # - https://9.9.9.9/dns-query
+    # - tls://8.8.8.8:853 
+    # - tls://1.1.1.1:853  
+     
 proxy-groups:
   # 使用 WARP 的用户需要手动在下方的 proxies 字段内添加 WARP
   # 例如 [WARP, 手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, DIRECT],
@@ -301,11 +320,6 @@ rule-anchor:
   
 # 订阅规则
 rule-providers:
-  LocalAreaNetwork:
-    <<: *classical_text
-    path: ./rule_provider/LocalAreaNetwork.txt
-    url: https://raw.githubusercontent.com/frankk007/ACL4SSR/refs/heads/doctor/Clash/LocalAreaNetwork.txt
-
   Anti-Ads:
     <<: *domain_text
     path: ./rule_provider/reject-list.txt
@@ -315,18 +329,8 @@ rule-providers:
     type: inline
     behavior: domain
     payload:
-      - '+.sciencedirect.com'
-      - '+.elsevier.com'
       - '+.zotero.org'
-    # - '+.synology.com'
-    # - '+.myds.me' # 如不配置，则匹配兜底规则，当兜底proxy时，影响群晖 DDNS，解析出代理节点ip，而非实际公网ip
-      - '+.quickconnect.to'
-      - '+.quickconnect.cn'
-      - '+.m-team.cc'
-      - '+.m-team.io'
-      - '+.hhanclub.top'
-      - '+.hhan.club'
-      - '+.open.cd'
+    # - '+.myds.me' # 如不配rule，则匹配兜底规则，当兜底proxy时，导致群晖DDNS出错，解析出代理节点ip，而非实际公网ip。目前已经配置synology dns和rule双分流
       - '+.ptzone.xyz'
 
   WeChat:
@@ -334,19 +338,14 @@ rule-providers:
     path: ./rule_provider/WeChat.yaml
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/WeChat/WeChat_No_Resolve.yaml
 
-  PayPal:
-    <<: *classical_yaml
-    path: ./rule_provider/PayPal.yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PayPal/PayPal_No_Resolve.yaml
-
   Caixin:
     <<: *domain_text
     path: ./rule_provider/Caixin.txt
     url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/Caixin.txt
 
 rules:
-### 域名类规则
-  - RULE-SET,LocalAreaNetwork,DIRECT
+### 域名类规则microsoft@cn,
+  - IP-CIDR,192.168.2.0/24,回家服务,no-resolve
   - DOMAIN-SUFFIX,adobe.io,REJECT
   # 若需禁用 QUIC 请取消注释 QUIC 两条规则
   # 防止 YouTube 等使用 QUIC 导致速度不佳, 禁用 443 端口 UDP 流量（拦截所有指向 非中国 IP 的 UDP 443（QUIC）流量）
@@ -355,8 +354,13 @@ rules:
   - RULE-SET,Anti-Ads,广告拦截
   - RULE-SET,abcDirect,DIRECT
   - RULE-SET,WeChat,DIRECT
-  - RULE-SET,PayPal,DIRECT
+  - GEOSITE,private,DIRECT
   - GEOSITE,apple,苹果服务
+  - GEOSITE,synology,DIRECT
+  - GEOSITE,paypal,DIRECT
+  - GEOSITE,elsevier,DIRECT
+  - GEOSITE,sciencedirect,DIRECT
+  - GEOSITE,category-pt,DIRECT
 # - GEOSITE,bilibili,哔哩哔哩
   - RULE-SET,Caixin,财新传媒
   - GEOSITE,category-ai-!cn,人工智能
@@ -375,7 +379,6 @@ rules:
   - GEOSITE,microsoft,微软服务
 # - GEOSITE,category-games-!cn,节点选择
   - GEOSITE,category-entertainment,海外娱乐 # 包含游戏、二次元、流媒体直播、音乐播客、动漫、小说、图片、影视数据库、成人等很多子集
-  - GEOSITE,category-pt,DIRECT
   - GEOSITE,geolocation-!cn@cn,DIRECT
   - GEOSITE,geolocation-!cn,节点选择
   - GEOSITE,geolocation-cn@!cn,节点选择
@@ -384,7 +387,6 @@ rules:
   - GEOSITE,cn,DIRECT # 包含上面两个子集 include:tld-cn与include:geolocation-cn
   
 ### IP 类规则
-  - IP-CIDR,192.168.2.0/24,回家服务,no-resolve
   - GEOIP,telegram,节点选择,no-resolve
   - GEOIP,CN,DIRECT
   - MATCH,漏网之鱼
