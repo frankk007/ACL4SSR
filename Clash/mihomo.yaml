@@ -1,7 +1,7 @@
 # 改分组锚点，全部节点改手动选择，删除自动选择，注释订阅2，改geosite库，1800改15，添加etcs，改sniffer，改tun，改dns
-# 添加回家、财新、微信、abcDIRECT、adobe reject、去广告规则，改新加坡和其他地区过滤条件，策略组大改，添加订阅规则锚点，添加rules-set，改rules
+# 添加回家、财新、微信、abcDIRECT、adobe reject、fake_ip_filter、去广告规则，改新加坡和其他地区过滤条件，策略组大改，添加订阅规则锚点，添加rules-set，改rules
 # 参考 https://www.aloxaf.com/2025/04/how_to_use_geosite/
-# 20250919 此配置无dns泄露
+# 20250921
 # mihomo (Clash Meta) 懒人配置
 # 版本 V1.22-250718
 # https://gist.github.com/liuran001/5ca84f7def53c70b554d3f765ff86a33
@@ -142,12 +142,12 @@ sniffer:
   sniff:
     HTTP:
       ports: [80, 8080-8880]
-      override-destination: true
     TLS:
       ports: [443]
     QUIC:
       ports: [443, 8443]
       # 可覆盖 sniffer.override-destination
+      override-destination: true
   force-domain:
     - "+.netflix.com"
     - "+.nflxvideo.net"
@@ -181,6 +181,10 @@ dns:
   enable: true # 关闭将使用系统 DNS
   use-hosts: true
   use-system-hosts: true
+  # 配置后面的nameserver、fallback和nameserver-policy向dns服务器的连接过程是否遵守遵守rules规则
+  # 如果为false（默认值）则这三部分的dns服务器在未特别指定的情况下会直连
+  # 如果为true，将会按照rules的规则匹配链接方式（走代理或直连），如果有特别指定则任然以指定值为准
+  # dns 连接遵守路由规则，需配置 proxy-server-nameserver
   respect-rules: false
   listen: 0.0.0.0:7874 # 开启 DNS 服务器监听
   ipv6: false # false 将返回 AAAA 的空结果
@@ -198,66 +202,31 @@ dns:
   fake-ip-range: 198.18.0.1/16 # fake-ip 池设置
   # fakeip 过滤，以下域名解析不采用 fake-ip 方式，这些域名相关的解析请求将会返回它们真实的 IP 地址
   fake-ip-filter:
-    - +.m2m
-    - injections.adguard.org
-    - local.adguard.org
-    - +.bogon
-    - +.lan
-    - +.local
-    - +.internal
-    - +.localdomain
-    - home.arpa
-    - 127.0.0.1.sslip.io
-    - 127.atlas.skk.moe
-    - dns.msftncsi.com
-    - "*.srv.nintendo.net"
-    - "*.stun.playstation.net"
-    - xbox.*.microsoft.com
-    - "*.xboxlive.com"
-    - "*.turn.twilio.com"
-    - "*.stun.twilio.com"
-    - stun.syncthing.net
-    - stun.*
-    - "*.sslip.io"
-    - "*.nip.io" 
-     
-  # 匹配到直连规则的域名解析服务器，有些大厂有国内节点，适合直连，但 policy 解析到一个国外 ip 就很尴尬
-  # 此时需要一个专门适配直连规则的国内 dns 再次解析以获取最优 ip，这样 dns 解析和建立连接就都拉回了国内，关键在于完善规则
-  direct-nameserver:
-     - https://223.5.5.5/dns-query
-     - https://doh.pub/dns-query  
-     - system
-  
+  - "rule-set:fake_ip_filter"
+# - "geosite:xxx"
+    
   # 默认的域名解析服务器
   nameserver: 
-     - https://8.8.8.8/dns-query
-     - https://cloudflare-dns.com/dns-query
-     - tls://9.9.9.9:853
-   # - https://dns.google/dns-query
-   # - https://dns.quad9.net/dns-query
-   #  - https://1.1.1.1/dns-query
-   #  - https://9.9.9.9/dns-query
-   #  - tls://8.8.8.8:853 
-   #  - tls://1.1.1.1:853
-         
+     - https://223.5.5.5/dns-query
+     - https://doh.pub/dns-query
+     - system
+     
+# 专用于direct出口域名解析的 DNS 服务器   
+# direct-nameserver:
+   # - https://223.5.5.5/dns-query
+   # - https://doh.pub/dns-query  
+   # - system
+            
   # 指定域名查询的解析服务器，优先级高
-  nameserver-policy:
-    ## 以下域名都在中国提供服务，配置了dns和rule
-    "geosite:cn,private,apple,microsoft,synology,paypal,elsevier,sciencedirect,category-pt":
-      - https://223.5.5.5/dns-query
-      - https://doh.pub/dns-query
-      - system
-    # - https://dns.alidns.com/dns-query
-    # - https://doh.360.cn/dns-query
-    
+  nameserver-policy:    
     ## WeChat 为 rule-providers 中的名为 WeChat 规则订阅，
     ## 且 behavior 必须为 domain/classical，当为 classical 时仅会生效域名类规则
     "rule-set:WeChat": https://doh.pub/dns-query
     
-    "geosite:geolocation-!cn":
-      - https://8.8.8.8/dns-query
-      - https://cloudflare-dns.com/dns-query
-      - tls://9.9.9.9:853
+  # "geosite:geolocation-!cn":
+    # - https://8.8.8.8/dns-query
+    # - https://cloudflare-dns.com/dns-query
+    # - tls://9.9.9.9:853
     # - https://dns.google/dns-query
     # - https://dns.quad9.net/dns-query
     # - https://1.1.1.1/dns-query
@@ -322,6 +291,11 @@ rule-anchor:
   
 # 订阅规则
 rule-providers:
+  fake_ip_filter:
+    <<: *domain_text
+    path: ./rule_provider/fake_ip_filter
+    url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/fake_ip_filter.txt
+  
   Anti-Ads:
     <<: *domain_text
     path: ./rule_provider/reject-list.txt
@@ -332,7 +306,9 @@ rule-providers:
     behavior: domain
     payload:
       - '+.zotero.org'
-    # - '+.myds.me' # 如不配rule，则匹配兜底规则，当兜底proxy时，导致群晖DDNS出错，解析出代理节点ip，而非实际公网ip。目前已经配置synology dns和rule双分流
+    # 如不添加域名rule，匹配ip规则时触发解析，由国外dns解析得到国外的群晖服务器ip，匹配到兜底规则走代理。导致群晖DDNS出错，nas上解析出代理ip，而非实际公网ip 
+    # 这也说明了在dns层面做分流，国外dns解析对于国内访问无法提供最优的cdn，苹果、微软等在国内外都提供服务的大公司也是如此
+    # - '+.myds.me' 
       - '+.ptzone.xyz'
 
   WeChat:
@@ -389,6 +365,5 @@ rules:
   - GEOSITE,cn,DIRECT # 包含上面两个子集 include:tld-cn与include:geolocation-cn
   
 ### IP 类规则
-  - GEOIP,telegram,节点选择,no-resolve
   - GEOIP,CN,DIRECT
   - MATCH,漏网之鱼
