@@ -231,7 +231,10 @@ proxy-groups:
   # 使用 WARP 的用户需要手动在下方的 proxies 字段内添加 WARP
   # 例如 [WARP, 手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, DIRECT],
   - { name: 节点选择, type: select, proxies: [香港, 台湾, 日本, 新加坡, 美国, 手动选择, 其它地区, DIRECT] }
-  - { name: 手动选择, type: select, include-all: true }
+  - name: 手动选择
+    type: select
+    include-all: true
+    exclude-type: direct
   - { name: 回家服务, type: select, proxies: [DIRECT, Home] }
   # 这里的 dns 指海外解析 dns 走的节点，一般跟随节点选择即可
 # - { name: dns, <<: *pr }
