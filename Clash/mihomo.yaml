@@ -63,7 +63,7 @@ proxy-providers:
 pr: &pr { type: select, proxies: [节点选择, 手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, DIRECT] }
 all: &all { type: url-test, use: [订阅一], filter: ".*" }
 # all: &all { type: url-test, use: [订阅一, 订阅二, 本地配置], filter: ".*" }
-diy: &diy { type: select, use: [订阅一], filter: ".*" }
+diy: &diy { type: select, use: [订阅一], include-all: true }
 
 mode: rule
 # ipv6 支持
@@ -231,13 +231,13 @@ proxy-groups:
   # 使用 WARP 的用户需要手动在下方的 proxies 字段内添加 WARP
   # 例如 [WARP, 手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, DIRECT],
   - { name: 节点选择, type: select, proxies: [香港, 台湾, 日本, 新加坡, 美国, 手动选择, 其它地区, DIRECT] }
-  - { name: 手动选择, type: select, <<: *diy }
-  - { name: 回家服务, type: select, proxies: [DIRECT, Home] }
+  - { name: 手动选择, <<: *diy }
+  - { name: 回家服务, type: select, filter: "(?i)家|回家|home", proxies: [DIRECT] }
   # 这里的 dns 指海外解析 dns 走的节点，一般跟随节点选择即可
 # - { name: dns, <<: *pr }
   # WARP 配置链式出站
   # - { name: WARP前置, <<: *pr, exclude-type: "wireguard" }
-  - { name: 财新传媒, type: select, proxies: [DIRECT, 财新] }
+  - { name: 财新传媒, type: select, filter: "(?i)财新|caixin|cx", proxies: [DIRECT] }
   - { name: 人工智能, type: select, proxies: [手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区] }
   - { name: 苹果服务, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
 # - { name: Google, <<: *pr }
@@ -263,8 +263,8 @@ proxy-groups:
   - { name: 漏网之鱼, <<: *pr }
 
   # 分隔,下面是地区分组
-  - { name: Home, <<: *all, filter: "(?i)家|回家|home" }
-  - { name: 财新, <<: *all, filter: "(?i)财新|caixin|cx" }
+# - { name: Home, <<: *all, filter: "(?i)家|回家|home" }
+# - { name: 财新, <<: *all, filter: "(?i)财新|caixin|cx" }
   - { name: 香港, <<: *all, filter: "(?i)港|hk|hongkong|hong kong" }
   - { name: 台湾, <<: *all, filter: "(?i)台|tw|taiwan" }
   - { name: 日本, <<: *all, filter: "(?i)日本|jp|japan" }
