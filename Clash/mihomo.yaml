@@ -176,7 +176,7 @@ dns:
   enable: true # 关闭将使用系统 DNS
   use-hosts: true
   use-system-hosts: true
-  # 配置后面的nameserver、fallback和nameserver-policy向dns服务器的连接过程是否遵守遵守rules规则
+  # 与nameserver、fallback和nameserver-policy中的dns服务器连接是否遵守rules
   # 如果为false（默认值）则这三部分的dns服务器在未特别指定的情况下会直连
   # 如果为true，将会按照rules的规则匹配链接方式（走代理或直连），如果有特别指定则任然以指定值为准
   # dns 连接遵守路由规则，需配置 proxy-server-nameserver
