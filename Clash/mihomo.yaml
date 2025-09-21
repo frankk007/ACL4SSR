@@ -1,5 +1,6 @@
 # 改分组锚点，全部节点改手动选择，删除自动选择，注释订阅2，改geosite库，1800改15，添加etcs，改sniffer，改tun，改dns
 # 添加回家、财新、微信、abcDIRECT、adobe reject、fake_ip_filter、去广告规则，改新加坡和其他地区过滤条件，策略组大改，添加订阅规则锚点，添加rules-set，改rules
+# 使用通配符时，应当使用引号 ' '或 " "将内容包裹起来
 # 参考 https://www.aloxaf.com/2025/04/how_to_use_geosite/
 # 20250921
 # mihomo (Clash Meta) 懒人配置
