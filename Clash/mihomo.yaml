@@ -62,7 +62,7 @@ proxy-providers:
 # 分组锚点
 pr: &pr { type: select, proxies: [节点选择, 手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, DIRECT] }
 all: &all { type: url-test, use: [订阅一], filter: ".*" }
-# use: &use { type: url-test, use: [订阅一, 订阅二, 本地配置], filter: ".*" }
+# all: &all { type: url-test, use: [订阅一, 订阅二, 本地配置], filter: ".*" }
 select: &select { type: select, use: [订阅一], filter: ".*" }
 
 mode: rule
@@ -142,16 +142,18 @@ sniffer:
   override-destination: false
   sniff: # TLS 和 QUIC 默认如果不配置 ports 默认嗅探 443
     QUIC:
-    #  ports: [ 443 ]
+      ports: [443]
     TLS:
-    #  ports: [443, 8443]
-
+      ports: [443, 8443]
     # 默认嗅探 80
     HTTP: # 需要嗅探的端口
       ports: [80, 8080-8880]
       # 可覆盖 sniffer.override-destination
       override-destination: true
-    skip-dst-address:
+    skip-domain: # 对于目标域名跳过嗅探
+    - "Mijia Cloud"
+    - "+.push.apple.com"
+    skip-dst-address:  # 对于目标ip跳过嗅探
       - 192.168.2.0/24
 
 # tun 配置
