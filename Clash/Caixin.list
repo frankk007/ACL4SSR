@@ -1,13 +1,11 @@
 # NAME: 财新传媒
-# 当请求为域名匹配到 GEOIP 或 IP-CIDR 规则时,Clash 将请求 DNS 查询来检查未知域名的 IP 是否匹配此条规则,可以选择“no-resolve”选项以跳过对该未知域名去进行 dns 解析，避免 dns 泄漏
+# 当请求为域名匹配到 GEOIP 或 IP-CIDR 规则时,Clash 将请求 DNS 查询来检查未知域名的 IP 是否匹配此条规则
+# no-resolve是跳过对该未知域名去进行 dns 解析，不做 IP 规则匹配，避免 dns 泄漏，其实并不适合于财新规则集
 
 DOMAIN-SUFFIX,caixin.cn
 DOMAIN-SUFFIX,caixin.com
 DOMAIN-SUFFIX,caixindata.com
 DOMAIN-SUFFIX,ccxe.com.cn
-DOMAIN-SUFFIX,vod.volcengineapi.com
-DOMAIN-SUFFIX,assets.giocdn.com
-DOMAIN-SUFFIX,sentry.bxtdata.com
 IP-CIDR,36.35.32.18/32,no-resolve
 IP-CIDR,36.35.32.19/32,no-resolve
 IP-CIDR,36.35.32.20/32,no-resolve
@@ -31,19 +29,5 @@ IP-CIDR,120.133.77.232/32,no-resolve
 IP-CIDR,120.133.77.237/32,no-resolve
 IP-CIDR,140.207.243.67/32,no-resolve
 IP-CIDR,140.207.243.68/32,no-resolve
-# 以下为之前电脑查询解析的 ip，以上为 loon 直连模式，dns记录到的 ip
-# IP-CIDR,36.27.222.128/25,no-resolve
-# IP-CIDR,101.201.30.46/32,no-resolve
-# IP-CIDR,103.71.68.128/25,no-resolve
-# IP-CIDR,106.3.127.128/25,no-resolve
-# IP-CIDR,106.3.129.128/25,no-resolve
-# IP-CIDR,112.83.76.152/32,no-resolve
-# IP-CIDR,113.207.105.149/32,no-resolve
-# IP-CIDR,114.113.83.0/25,no-resolve
-# IP-CIDR,119.3.204.44/32,no-resolve
-# IP-CIDR,120.133.77.128/25,no-resolve
-# IP-CIDR,121.233.193.1/32,no-resolve
-# IP-CIDR,122.228.98.0/25,no-resolve
-# IP-CIDR,124.14.14.0/25,no-resolve
-# IP-CIDR,124.14.16.0/25,no-resolve
-# IP-CIDR,124.203.226.1/32,no-resolve
+# 以上为 loon 直连模式，dns记录到的 ip
+
