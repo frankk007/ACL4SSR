@@ -154,7 +154,7 @@ sniffer:
     - "Mijia Cloud"
     - "+.push.apple.com"
   skip-dst-address:  # 对于目标ip跳过嗅探
-      - 192.168.2.0/24
+    - 192.168.2.0/24
 
 # tun 配置
 tun:
