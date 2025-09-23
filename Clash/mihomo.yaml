@@ -230,16 +230,16 @@ dns:
 proxy-groups:
   # 使用 WARP 的用户需要手动在下方的 proxies 字段内添加 WARP
   # 例如 [WARP, 手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, DIRECT],
-  - { name: 节点选择, type: select, proxies: [香港, 台湾, 日本, 新加坡, 美国, 手动选择, 其它地区, DIRECT] }
-  - { name: 手动选择, <<: *diy }
-  - { name: 回家服务, <<: *diy, filter: "(?i)家|回家|home", proxies: [DIRECT] }
+  - { name: 节点选择, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/Twoandz9/Xray.png, type: select, proxies: [香港, 台湾, 日本, 新加坡, 美国, 手动选择, 其它地区, DIRECT] }
+  - { name: 手动选择, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Proxy.png, <<: *diy }
+  - { name: 回家服务, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Back.png, <<: *diy, filter: "(?i)家|回家|home", proxies: [DIRECT] }
   # 这里的 dns 指海外解析 dns 走的节点，一般跟随节点选择即可
 # - { name: dns, <<: *pr }
   # WARP 配置链式出站
   # - { name: WARP前置, <<: *pr, exclude-type: "wireguard" }
-  - { name: 财新传媒, <<: *diy, filter: "(?i)财新|caixin|cx", proxies: [DIRECT] }
-  - { name: 人工智能, type: select, proxies: [手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区] }
-  - { name: 苹果服务, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
+  - { name: 财新传媒, icon: https://raw.githubusercontent.com/frankk007/ddgksf2013/Profile/Caixin.png, <<: *diy, filter: "(?i)财新|caixin|cx", proxies: [DIRECT] }
+  - { name: 人工智能, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/chxm1023/ChatGPT5.png, type: select, proxies: [手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区] }
+  - { name: 苹果服务, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
 # - { name: Google, <<: *pr }
 # - { name: Telegram, <<: *pr }
 # - { name: Twitter, <<: *pr }
@@ -249,28 +249,28 @@ proxy-groups:
   # 下面 rules 两条也要启用
 # - {name: 哔哩哔哩, type: select, proxies: [DIRECT,香港, 台湾] }
 # - { name: 巴哈姆特, <<: *pr }
-  - { name: YouTube, <<: *pr }
-  - { name: NETFLIX, <<: *pr }
+  - { name: YouTube, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png, <<: *pr }
+  - { name: NETFLIX, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png, <<: *pr }
   # 中国大陆的OneDrive数据传输是要经过中国的国际互联网出口的
-  - { name: OneDrive, type: select, proxies: [节点选择,手动选择, DIRECT] }
-  - { name: 微软服务, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
+  - { name: OneDrive, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/OneDrive.png, type: select, proxies: [节点选择,手动选择, DIRECT] }
+  - { name: 微软服务, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Microsoft.png, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
 # - { name: TikTok, <<: *pr }
 # - { name: Spotify, <<: *pr }
 # - { name: Github, <<: *pr }
-  - { name: Steam, <<: *pr }
-  - { name: 海外娱乐, <<: *pr }
-  - { name: 广告拦截, type: select, proxies: [REJECT, DIRECT, 节点选择] }
-  - { name: 漏网之鱼, <<: *pr }
+  - { name: Steam, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Steam.png, <<: *pr }
+  - { name: 海外娱乐, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HKMTMedia.png, <<: *pr }
+  - { name: 广告拦截, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Adblack.png, type: select, proxies: [REJECT, DIRECT, 节点选择] }
+  - { name: 漏网之鱼, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png, <<: *pr }
 
   # 分隔,下面是地区分组
 # - { name: Home, <<: *all, filter: "(?i)家|回家|home" }
 # - { name: 财新, <<: *all, filter: "(?i)财新|caixin|cx" }
-  - { name: 香港, <<: *all, filter: "(?i)港|hk|hongkong|hong kong" }
-  - { name: 台湾, <<: *all, filter: "(?i)台|tw|taiwan" }
-  - { name: 日本, <<: *all, filter: "(?i)日本|jp|japan" }
-  - { name: 美国, <<: *all, filter: "(?i)美|us|unitedstates|united states" }
-  - { name: 新加坡, <<: *all, filter: "(?i)(新加坡|sg|singapore)" }
-  - { name: 其它地区, <<: *all, filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|家|回家|home|财新|caixin|cx|港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates)).*",
+  - { name: 香港, icon: https://git.ihtw.moe/JohnsonRan/QuanX-icon-rule/raw/main/icon/Hongkong(2).png, <<: *all, filter: "(?i)港|hk|hongkong|hong kong" }
+  - { name: 台湾, icon: https://git.ihtw.moe/JohnsonRan/QuanX-icon-rule/raw/main/icon/taiwan.png, <<: *all, filter: "(?i)台|tw|taiwan" }
+  - { name: 日本, icon: https://git.ihtw.moe/JohnsonRan/QuanX-icon-rule/raw/main/icon/Japan(1).png, <<: *all, filter: "(?i)日本|jp|japan" }
+  - { name: 美国, icon: https://git.ihtw.moe/JohnsonRan/QuanX-icon-rule/raw/main/icon/US(1).png, <<: *all, filter: "(?i)美|us|unitedstates|united states" }
+  - { name: 新加坡, icon: https://git.ihtw.moe/JohnsonRan/QuanX-icon-rule/raw/main/icon/singapore(2).png, <<: *all, filter: "(?i)(新加坡|sg|singapore)" }
+  - { name: 其它地区, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png, <<: *all, filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|家|回家|home|财新|caixin|cx|港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates)).*",
     }
 
 # 订阅规则锚点
