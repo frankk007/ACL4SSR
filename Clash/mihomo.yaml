@@ -290,8 +290,8 @@ rule-providers:
   
   Anti-Ads:
     <<: *domain_text
-    path: ./rule_provider/reject-list.txt
-    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/reject-list.txt
+    path: ./rule_provider/ADs_merged.txt
+    url: https://raw.githubusercontent.com/JohnsonRan/CRules/mihomo/rules/ADs_merged.txt
     
   abcDirect:
     type: inline
