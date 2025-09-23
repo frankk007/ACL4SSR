@@ -236,7 +236,7 @@ proxy-groups:
   # 这里的 dns 指海外解析 dns 走的节点，一般跟随节点选择即可
 # - { name: dns, <<: *pr }
   # WARP 配置链式出站
-  # - { name: WARP前置, <<: *pr, exclude-type: "wireguard" }
+# - { name: WARP前置, <<: *pr, exclude-type: "wireguard" }
   - { name: 财新传媒, icon: https://raw.githubusercontent.com/frankk007/ddgksf2013/Profile/Caixin.png, <<: *diy, filter: "(?i)财新|caixin|cx", proxies: [DIRECT] }
   - { name: 人工智能, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/chxm1023/ChatGPT5.png, type: select, proxies: [手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区] }
   - { name: 苹果服务, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
@@ -247,19 +247,19 @@ proxy-groups:
 # - { name: ehentai, <<: *pr }
   # 下面两个看需求启用，打开之后会代理全站流量，可能导致部分版权视频反而无法播放或视频播放速度缓慢
   # 下面 rules 两条也要启用
-# - {name: 哔哩哔哩, type: select, proxies: [DIRECT,香港, 台湾] }
+# - {name: 哔哩哔哩, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili.png, type: select, proxies: [DIRECT,香港, 台湾] }
 # - { name: 巴哈姆特, <<: *pr }
   - { name: YouTube, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png, <<: *pr }
   - { name: NETFLIX, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png, <<: *pr }
   # 中国大陆的OneDrive数据传输是要经过中国的国际互联网出口的
   - { name: OneDrive, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/OneDrive.png, type: select, proxies: [节点选择,手动选择, DIRECT] }
   - { name: 微软服务, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Microsoft.png, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
-# - { name: TikTok, <<: *pr }
+# - { name: TikTok, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Tiktok.png, <<: *pr }
 # - { name: Spotify, <<: *pr }
 # - { name: Github, <<: *pr }
   - { name: Steam, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Steam.png, <<: *pr }
   - { name: 海外娱乐, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HKMTMedia.png, <<: *pr }
-  - { name: 广告拦截, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Adblack.png, type: select, proxies: [REJECT, DIRECT, 节点选择] }
+  - { name: 广告拦截, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/AdBlack.png, type: select, proxies: [REJECT, DIRECT, 节点选择] }
   - { name: 漏网之鱼, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png, <<: *pr }
 
   # 分隔,下面是地区分组
