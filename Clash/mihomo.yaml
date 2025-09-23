@@ -231,7 +231,7 @@ proxy-groups:
   # 使用 WARP 的用户需要手动在下方的 proxies 字段内添加 WARP
   # 例如 [WARP, 手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, DIRECT],
   - { name: 节点选择, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/Twoandz9/Xray.png, type: select, proxies: [香港, 台湾, 日本, 新加坡, 美国, 手动选择, 其它地区, DIRECT] }
-  - { name: 手动选择, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Proxy.png, <<: *diy }
+  - { name: 手动选择, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Universal/Final.png, <<: *diy }
   - { name: 回家服务, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Back.png, <<: *diy, filter: "(?i)家|回家|home", proxies: [DIRECT] }
   # 这里的 dns 指海外解析 dns 走的节点，一般跟随节点选择即可
 # - { name: dns, <<: *pr }
@@ -239,7 +239,7 @@ proxy-groups:
 # - { name: WARP前置, <<: *pr, exclude-type: "wireguard" }
   - { name: 财新传媒, icon: https://raw.githubusercontent.com/frankk007/ddgksf2013/Profile/Caixin.png, <<: *diy, filter: "(?i)财新|caixin|cx", proxies: [DIRECT] }
   - { name: 人工智能, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/chxm1023/ChatGPT5.png, type: select, proxies: [手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区] }
-  - { name: 苹果服务, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
+  - { name: 苹果服务, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Apple_Arcade.png, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
 # - { name: Google, <<: *pr }
 # - { name: Telegram, <<: *pr }
 # - { name: Twitter, <<: *pr }
@@ -253,14 +253,14 @@ proxy-groups:
   - { name: NETFLIX, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png, <<: *pr }
   # 中国大陆的OneDrive数据传输是要经过中国的国际互联网出口的
   - { name: OneDrive, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/OneDrive.png, type: select, proxies: [节点选择,手动选择, DIRECT] }
-  - { name: 微软服务, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Microsoft.png, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
+  - { name: 微软服务, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Windows_11.png, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
 # - { name: TikTok, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Tiktok.png, <<: *pr }
 # - { name: Spotify, <<: *pr }
 # - { name: Github, <<: *pr }
   - { name: Steam, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Steam.png, <<: *pr }
   - { name: 海外娱乐, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HKMTMedia.png, <<: *pr }
   - { name: 广告拦截, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/AdBlack.png, type: select, proxies: [REJECT, DIRECT, 节点选择] }
-  - { name: 漏网之鱼, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png, <<: *pr }
+  - { name: 漏网之鱼, icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Final.png, <<: *pr }
 
   # 分隔,下面是地区分组
 # - { name: Home, <<: *all, filter: "(?i)家|回家|home" }
