@@ -247,7 +247,7 @@ proxy-groups:
 # - { name: ehentai, <<: *pr }
   # 下面两个看需求启用，打开之后会代理全站流量，可能导致部分版权视频反而无法播放或视频播放速度缓慢
   # 下面 rules 两条也要启用
-# - {name: 哔哩哔哩, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili.png, type: select, proxies: [DIRECT,香港, 台湾] }
+  - {name: 哔哩哔哩, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili.png, type: select, proxies: [DIRECT,香港, 台湾] }
 # - { name: 巴哈姆特, <<: *pr }
   - { name: YouTube, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png, <<: *pr }
   - { name: NETFLIX, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png, <<: *pr }
@@ -331,7 +331,7 @@ rules:
   - GEOSITE,elsevier,DIRECT
   - GEOSITE,sciencedirect,DIRECT
   - GEOSITE,category-pt,DIRECT
-# - GEOSITE,bilibili,哔哩哔哩
+  - GEOSITE,bilibili,哔哩哔哩
   - RULE-SET,Caixin,财新传媒
   - GEOSITE,category-ai-!cn,人工智能
   - GEOSITE,github,节点选择
