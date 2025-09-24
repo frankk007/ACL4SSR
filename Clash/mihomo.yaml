@@ -341,9 +341,9 @@ rules:
   - GEOSITE,google,节点选择
   - GEOSITE,telegram,节点选择
   - GEOSITE,netflix,NETFLIX
-  - GEOSITE,tiktok,节点选择
+  - GEOSITE,tiktok,Tiktok
 # - GEOSITE,bahamut,巴哈姆特
-# - GEOSITE,spotify,Spotify
+  - GEOSITE,spotify,Spotify
   - GEOSITE,steam@cn,DIRECT
   - GEOSITE,steam,Steam
   - GEOSITE,onedrive,OneDrive
