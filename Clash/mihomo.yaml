@@ -252,7 +252,7 @@ proxy-groups:
   - { name: YouTube, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png, <<: *pr }
   - { name: NETFLIX, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png, <<: *pr }
   选择] }
-  - { name: TikTok, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Tiktok.png, <<: *pr }
+  - { name: TikTok, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png, <<: *pr }
   - { name: Spotify, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Spotify.png, <<: *pr }
   # 中国大陆的OneDrive数据传输是要经过中国的国际互联网出口的
   - { name: OneDrive, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/OneDrive.png, type: select, proxies: [节点选择,手动选择, DIRECT] }
@@ -341,7 +341,7 @@ rules:
   - GEOSITE,google,节点选择
   - GEOSITE,telegram,节点选择
   - GEOSITE,netflix,NETFLIX
-  - GEOSITE,tiktok,Tiktok
+  - GEOSITE,tiktok,TikTok
 # - GEOSITE,bahamut,巴哈姆特
   - GEOSITE,spotify,Spotify
   - GEOSITE,steam@cn,DIRECT
