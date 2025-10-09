@@ -302,6 +302,7 @@ rule-providers:
     # 这也说明了在dns层面做分流，国外dns解析对于国内访问无法提供最优的cdn，苹果、微软等在国内外都提供服务的大公司也是如此
     # - '+.myds.me' 
       - '+.ptzone.xyz'
+      - '+.emby.wtf'
 
   WeChat:
     <<: *classical_yaml
