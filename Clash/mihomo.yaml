@@ -238,7 +238,7 @@ proxy-groups:
   # WARP 配置链式出站
 # - { name: WARP前置, <<: *pr, exclude-type: "wireguard" }
   - { name: 财新传媒, icon: https://raw.githubusercontent.com/frankk007/ddgksf2013/Profile/Caixin.png, <<: *diy, filter: "(?i)财新|caixin|cx", proxies: [DIRECT] }
-  - { name: 人工智能, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/chxm1023/ChatGPT5.png, type: select, proxies: [手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区] }
+  - { name: 人工智能, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/ChatGPT5.png, type: select, proxies: [手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区] }
   - { name: 苹果服务, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Apple_Arcade.png, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
 # - { name: Google, <<: *pr }
 # - { name: Telegram, <<: *pr }
