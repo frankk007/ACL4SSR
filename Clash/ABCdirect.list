@@ -1,4 +1,4 @@
-# 内容：自用域名直连，学术、群晖qc、pt站、终点站
+# 内容：自用域名直连，学术、群晖qc、pt站
 
 DOMAIN,sciencedirect.com
 DOMAIN-SUFFIX,elsevier.com
@@ -10,7 +10,7 @@ DOMAIN-KEYWORD,m-team
 DOMAIN,hhanclub.top
 DOMAIN,hhan.club
 DOMAIN,audiences.me
+DOMAIN,tracker.cinefiles.info
 DOMAIN-KEYWORD,open.cd
 DOMAIN-KEYWORD,ptzone
-DOMAIN-SUFFIX,emby.wtf
 
