@@ -11,4 +11,3 @@ DOMAIN,hhanclub.top
 DOMAIN,hhan.club
 DOMAIN-KEYWORD,open.cd
 DOMAIN-KEYWORD,ptzone
-DOMAIN-SUFFIX,emby.wtf
