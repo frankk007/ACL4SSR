@@ -230,7 +230,7 @@ dns:
 proxy-groups:
   # 使用 WARP 的用户需要手动在下方的 proxies 字段内添加 WARP
   # 例如 [WARP, 手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, DIRECT],
-  - { name: 节点选择, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/Twoandz9/Xray.png, type: select, proxies: [香港, 台湾, 日本, 新加坡, 美国, 手动选择, 其它地区, DIRECT] }
+  - { name: 节点选择, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/Twoandz9/Xray.png, type: fallback, proxies: [香港, 台湾, 日本, 新加坡, 美国, 手动选择, 其它地区, DIRECT] }
   - { name: 手动选择, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Universal/Final.png, <<: *diy }
   - { name: 回家服务, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Back.png, <<: *diy, filter: "(?i)家|回家|home", proxies: [DIRECT] }
   # 这里的 dns 指海外解析 dns 走的节点，一般跟随节点选择即可
