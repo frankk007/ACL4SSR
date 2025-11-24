@@ -60,7 +60,7 @@ proxy-providers:
       # additional-prefix: "[本地配置]"
 
 # 分组锚点
-pr: &pr { type: select, proxies: [节点选择, 手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, DIRECT] }
+pr: &pr { type: select, proxies: [节点选择, 手动选择, 香港, 台湾, 新加坡, 日本, 美国, 其它地区, DIRECT] }
 all: &all { type: url-test, use: [订阅一], filter: ".*" }
 # all: &all { type: url-test, use: [订阅一, 订阅二, 本地配置], filter: ".*" }
 diy: &diy { type: select, use: [订阅一], include-all: true }
@@ -230,7 +230,7 @@ dns:
 proxy-groups:
   # 使用 WARP 的用户需要手动在下方的 proxies 字段内添加 WARP
   # 例如 [WARP, 手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, DIRECT],
-  - { name: 节点选择, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/Twoandz9/Xray.png, type: fallback, proxies: [香港, 台湾, 日本, 新加坡, 美国, 手动选择, 其它地区, DIRECT] }
+  - { name: 节点选择, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/Twoandz9/Xray.png, type: fallback, proxies: [香港, 台湾, 新加坡, 日本, 美国, 手动选择, 其它地区] }
   - { name: 手动选择, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Universal/Final.png, <<: *diy }
   - { name: 回家服务, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Back.png, <<: *diy, filter: "(?i)家|回家|home", proxies: [DIRECT] }
   # 这里的 dns 指海外解析 dns 走的节点，一般跟随节点选择即可
@@ -238,7 +238,7 @@ proxy-groups:
   # WARP 配置链式出站
 # - { name: WARP前置, <<: *pr, exclude-type: "wireguard" }
   - { name: 财新传媒, icon: https://raw.githubusercontent.com/frankk007/ddgksf2013/Profile/Caixin.png, <<: *diy, filter: "(?i)财新|caixin|cx", proxies: [DIRECT] }
-  - { name: 人工智能, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/ChatGPT5.png, type: select, proxies: [手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区] }
+  - { name: 人工智能, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/ChatGPT5.png, type: select, proxies: [手动选择, 香港, 台湾, 新加坡, 日本, 美国, 其它地区] }
   - { name: 苹果服务, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Apple_Arcade.png, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
 # - { name: Google, <<: *pr }
 # - { name: Telegram, <<: *pr }
@@ -247,14 +247,14 @@ proxy-groups:
 # - { name: ehentai, <<: *pr }
   # 下面两个看需求启用，打开之后会代理全站流量，可能导致部分版权视频反而无法播放或视频播放速度缓慢
   # 下面 rules 两条也要启用
-  - {name: 哔哩哔哩, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili.png, type: select, proxies: [DIRECT,香港, 台湾] }
+  - {name: 哔哩哔哩, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili.png, type: select, proxies: [DIRECT, 香港, 台湾] }
 # - { name: 巴哈姆特, <<: *pr }
   - { name: YouTube, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png, <<: *pr }
   - { name: NETFLIX, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png, <<: *pr }
   - { name: TikTok, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png, <<: *pr }
   - { name: Spotify, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Spotify.png, <<: *pr }
   # 中国大陆的OneDrive数据传输是要经过中国的国际互联网出口的
-  - { name: OneDrive, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/OneDrive.png, type: select, proxies: [节点选择,手动选择, DIRECT] }
+  - { name: OneDrive, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/OneDrive.png, type: select, proxies: [节点选择, 手动选择, DIRECT] }
   - { name: 微软服务, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Windows_11.png, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
 # - { name: Github, <<: *pr }
   - { name: Steam, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Steam.png, <<: *pr }
