@@ -1,5 +1,5 @@
 # 内容：自用域名代理
-# 订阅转换后端域名（第4-5为花云推荐后端），moviepolit环境代理
+# 订阅转换后端域名（前3个为ACL4SSR订阅转换后端，第4-5为花云后端），moviepolit环境代理
 
 DOMAIN,api.wcc.best
 DOMAIN,sub.xeton.dev
@@ -8,4 +8,3 @@ DOMAIN,sub-web.wcc.best
 DOMAIN,sublink.dev
 DOMAIN,api.themoviedb.org
 DOMAIN,api.github.com
-
