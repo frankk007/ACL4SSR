@@ -267,9 +267,9 @@ proxy-groups:
 # - { name: 财新, <<: *all, filter: "(?i)财新|caixin|cx" }
   - { name: 香港, icon: https://git.ihtw.moe/JohnsonRan/QuanX-icon-rule/raw/main/icon/Hongkong(2).png, <<: *all, filter: "(?i)港|hk|hongkong|hong kong" }
   - { name: 台湾, icon: https://git.ihtw.moe/JohnsonRan/QuanX-icon-rule/raw/main/icon/taiwan.png, <<: *all, filter: "(?i)台|tw|taiwan" }
+  - { name: 新加坡, icon: https://git.ihtw.moe/JohnsonRan/QuanX-icon-rule/raw/main/icon/singapore(2).png, <<: *all, filter: "(?i)(新加坡|sg|singapore)" }
   - { name: 日本, icon: https://git.ihtw.moe/JohnsonRan/QuanX-icon-rule/raw/main/icon/Japan(1).png, <<: *all, filter: "(?i)日本|jp|japan" }
   - { name: 美国, icon: https://git.ihtw.moe/JohnsonRan/QuanX-icon-rule/raw/main/icon/US(1).png, <<: *all, filter: "(?i)美|us|unitedstates|united states" }
-  - { name: 新加坡, icon: https://git.ihtw.moe/JohnsonRan/QuanX-icon-rule/raw/main/icon/singapore(2).png, <<: *all, filter: "(?i)(新加坡|sg|singapore)" }
   - { name: 其它地区, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png, <<: *all, filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|家|回家|home|财新|caixin|cx|港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates)).*",
     }
 
