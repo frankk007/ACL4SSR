@@ -317,6 +317,7 @@ rule-providers:
 rules:
 ### 域名类规则
   - IP-CIDR,192.168.2.0/24,回家服务,no-resolve
+  - IP-CIDR,124.90.44.40/32,DIRECT,no-resolve
   - DOMAIN-SUFFIX,adobe.io,REJECT
   # 若需禁用 QUIC 请取消注释 QUIC 两条规则
   # 防止 YouTube 等使用 QUIC 导致速度不佳, 禁用 443 端口 UDP 流量（拦截所有指向 非中国 IP 的 UDP 443（QUIC）流量）
