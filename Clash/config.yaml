@@ -373,7 +373,7 @@ rule-anchor:
 rule-providers:
   fake_ip_filter:
     <<: *domain_text
-    path: ./rule_provider/fake_ip_filter
+    path: ./rule_provider/fake_ip_filter.txt
     url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/fake_ip_filter.txt
 
   AWAvenue-Ads:
@@ -382,7 +382,7 @@ rule-providers:
     url: https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml
 
   abcDirect:
-    <<: *domain_txt
+    <<: *domain_text
     path: ./rule_provider/abcDirect.txt
     url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/abcDirect.txt
 
