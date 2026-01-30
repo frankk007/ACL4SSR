@@ -1,0 +1,450 @@
+# 改分组锚点，全部节点改手动选择，删除自动选择，注释订阅2，改geosite库，1800改15，添加etcs，改sniffer，改tun，改dns，关闭auto三项
+# 添加回家、财新、微信、abcDIRECT、adobe reject、fake_ip_filter、去广告规则，改新加坡和其他地区过滤条件，策略组大改，添加订阅规则锚点，添加rules-set，改rules
+# 使用通配符时，应当使用引号 ' '或 " "将内容包裹起来
+# 参考 https://www.aloxaf.com/2025/04/how_to_use_geosite/，https://github.com/yyhhyyyyyy/selfproxy/blob/main/Mihomo/mihomo_single.yaml
+# 20250921
+# mihomo (Clash Meta) 懒人配置
+# 版本 V1.22-250718
+# https://gist.github.com/liuran001/5ca84f7def53c70b554d3f765ff86a33
+# https://obdo.cc/meta
+# 作者: 笨蛋ovo (bdovo.cc)
+# Telegram: https://t.me/baka_not_baka
+# 关注我的 Telegram 频道谢谢喵 https://t.me/s/BDovo_Channel
+# 修改自官方示例规则 https://wiki.metacubex.one/example/#meta
+# 转载请保留此注释
+# 尽量添加了较为详尽的注释，不理解的地方建议对照 虚空终端 (Clash Meta) Docs 进行理解
+# 虚空终端 (Clash Meta) Docs 地址: https://wiki.metacubex.one
+# 不理解的地方不要乱动，如果你是小白，请按下 `Ctrl + F` 搜索 `基础配置`，只修改此部分
+
+# =========================
+# 订阅链接
+# =========================
+
+# 延迟检测 URL
+p: &p
+  type: http
+  # 自动更新订阅时间，单位为秒
+  interval: 3600
+  health-check:
+    enable: true
+    url: https://cp.cloudflare.com
+    # 节点连通性检测时间，单位为秒
+    interval: 300
+    # 节点超时延迟，单位为毫秒
+    timeout: 1000
+    # 节点自动切换差值，单位为毫秒
+    tolerance: 100
+
+proxy-providers:
+  订阅一:
+    <<: *p
+    # path: ./proxy_provider/sub.yaml
+    url: "订阅链接"
+    # 如需要为该订阅组节点添加前缀，取消下面两行注释
+    # override:
+    #   additional-prefix: "[订阅一]"
+
+  # 订阅二:
+  #   <<: *p
+  #   path: ./proxy_provider/订阅二.yaml
+  #   url: "https://example.com/api/v1/client/subscribe?token=ilovechina"
+  #   如需要为该订阅组节点添加前缀，取消下面两行注释
+  # override:
+  #   additional-prefix: "[订阅二]"
+
+  # 本地配置:
+  #   <<: *p
+  #   path: ./proxy_provider/本地配置.yaml
+  # 如需要为该订阅组节点添加前缀，取消下面两行注释
+  # override:
+  #   additional-prefix: "[本地配置]"
+
+# =========================
+# 分组锚点
+# =========================
+pr: &pr
+  type: select
+  proxies:
+    - 节点选择
+    - 手动选择
+    - 香港
+    - 台湾
+    - 新加坡
+    - 日本
+    - 美国
+    - 其它地区
+    - DIRECT
+
+all: &all
+  type: url-test
+  use: [订阅一]
+  filter: ".*"
+
+# all: &all { type: url-test, use: [订阅一, 订阅二, 本地配置], filter: ".*" }
+
+diy: &diy
+  type: select
+  use: [订阅一]
+  include-all: true
+
+# =========================
+# 基础配置
+# =========================
+mode: rule
+# ipv6 支持
+ipv6: false
+log-level: info
+# 允许局域网连接
+allow-lan: true
+# socks5/http 端口
+mixed-port: 7890
+
+# Meta 内核特性 https://wiki.metacubex.one/config/general
+unified-delay: true
+tcp-concurrent: true
+# 外部控制端口
+external-controller: :9090
+
+geodata-mode: true
+geodata-loader: standard # or memconservative：专为内存受限 (小内存) 设备优化的加载器 (默认值)
+
+# Geo 数据库下载地址
+# 源地址 https://github.com/MetaCubeX/meta-rules-dat
+# 可以更换镜像站但不要更换其他数据库，可能导致无法启动
+geox-url:
+  geoip: "https://ghfast.top/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat"
+  geosite: "https://testingcf.jsdelivr.net/gh/v2fly/domain-list-community@release/dlc.dat"
+  # geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://ghfast.top/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb"
+
+geo-auto-update: true
+geo-update-interval: 24
+
+# 进程匹配模式
+# 路由器上请设置为 off
+# always 开启，强制匹配所有进程
+# strict 默认，由 Clash 判断是否开启
+# off 不匹配进程，推荐在路由器上使用此模式
+find-process-mode: strict
+
+# 缓解移动设备耗电问题改为1800
+# https://github.com/vernesong/OpenClash/issues/2614
+keep-alive-interval: 15
+
+# 全局客户端指纹
+global-client-fingerprint: random # 随机指纹
+
+# 类似于 /etc/hosts, 仅支持配置单个 IP
+hosts:
+  # '*.mihomo.dev': 127.0.0.1
+  # '.dev': 127.0.0.1
+  # 'alpha.mihomo.dev': '::1'
+
+# 缓存
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+# 自动同步时间以防止时间不准导致无法正常联网
+ntp:
+  enable: false
+  # 是否同步至系统时间，需要 root/管理员权限
+  write-to-system: true
+  server: time.apple.com
+  port: 123
+  interval: 30
+
+# =========================
+# 嗅探域名 可选配置
+# =========================
+sniffer:
+  enable: true
+  # 对 redir-host 类型识别的流量进行强制嗅探
+  # force-dns-mapping: true
+  # 对所有未获取到域名的流量进行强制嗅探
+  # parse-pure-ip: true
+  # 是否使用嗅探结果作为实际访问，默认 true
+  # 全局配置，优先级低于 sniffer.sniff 实际配置
+  override-destination: false
+  sniff: # TLS 和 QUIC 默认如果不配置 ports 默认嗅探 443
+    QUIC:
+      ports: [443]
+    TLS:
+      ports: [443, 8443]
+    HTTP: # 需要嗅探的端口（默认嗅探 80）
+      ports: [80, 8080-8880]
+      # 可覆盖 sniffer.override-destination
+      override-destination: true
+  skip-domain: # 对于目标域名跳过嗅探
+    - "Mijia Cloud"
+    - "+.push.apple.com"
+
+# =========================
+# tun 配置
+# =========================
+tun:
+  enable: false
+  stack: system  # gvisor/mixed，如无使用问题，建议使用 mixed栈，默认 gvisor
+  #auto-route: false # 自动设置全局路由，可以自动将全局流量路由进入 tun 网卡
+  #auto-detect-interface: false # 自动识别出口网卡，多出口网卡同时连接的设备建议手动指定出口网卡
+  dns-hijack: # 拦截所有发往 53 端口的 DNS 流量，并交给 Clash 内置 DNS（7874）处理
+    - any:53
+    - tcp://any:53
+  #auto-redirect: false # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux
+  # strict-route: true # 启用 auto-route 时执行严格的路由规则
+  # 如果有使用zerotier或者headscale等，需要自己配置排除自己的网段
+  # route-exclude-address: ["192.168.110.0/24"]
+
+# =========================
+# dns 设置
+# =========================
+dns:
+  cache-algorithm: arc
+  enable: true # 关闭将使用系统 DNS
+  use-hosts: true
+  use-system-hosts: true
+  # 与 nameserver、fallback 和 nameserver-policy 中的 dns 服务器连接是否遵守 rules
+  respect-rules: false
+  listen: 0.0.0.0:7874 # 开启 DNS 服务器监听
+  ipv6: false # false 将返回 AAAA 的空结果
+
+  # 默认 DNS, 用于解析 DNS 服务器 的域名
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - system # append DNS server from system configuration.
+
+  enhanced-mode: redir-host # or fake-ip
+  fake-ip-range: 198.18.0.1/16 # fake-ip 池设置
+
+  # fakeip 过滤
+  fake-ip-filter:
+    - "rule-set:fake_ip_filter"
+    # - "geosite:xxx"
+
+  # 默认的域名解析服务器
+  nameserver:
+    - https://223.5.5.5/dns-query
+    - https://doh.pub/dns-query
+    - system
+
+  # 指定域名查询的解析服务器，优先级高
+  nameserver-policy:
+    ## WeChat 为 rule-providers 中的名为 WeChat 规则订阅，
+    ## 且 behavior 必须为 domain/classical，当为 classical 时仅会生效域名类规则
+    "rule-set:WeChat": https://doh.pub/dns-query
+
+# =========================
+# 策略组
+# =========================
+proxy-groups:
+  # 使用 WARP 的用户需要手动在下方的 proxies 字段内添加 WARP
+  # 例如 [WARP, 手动选择, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, DIRECT],
+  - name: 节点选择
+    icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/Twoandz9/Xray.png
+    type: fallback
+    proxies: [香港, 台湾, 新加坡, 日本, 美国, 手动选择, 其它地区]
+
+  - name: 手动选择
+    icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Universal/Final.png
+    <<: *diy
+
+  - name: 回家服务
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Back.png
+    <<: *diy
+    filter: "(?i)家|回家|home"
+    proxies: [DIRECT]
+
+  - name: 财新传媒
+    icon: https://raw.githubusercontent.com/frankk007/ddgksf2013/Profile/Caixin.png
+    <<: *diy
+    filter: "(?i)财新|caixin|cx"
+    proxies: [DIRECT]
+
+  - name: 人工智能
+    icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/ChatGPT5.png
+    type: select
+    proxies: [手动选择, 香港, 台湾, 新加坡, 日本, 美国, 其它地区]
+
+  - name: 苹果服务
+    icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Apple_Arcade.png
+    type: select
+    proxies: [DIRECT, 节点选择, 手动选择]
+
+  - name: 哔哩哔哩
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili.png
+    type: select
+    proxies: [DIRECT, 香港, 台湾]
+
+  - name: YouTube
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png
+    <<: *pr
+
+  - name: NETFLIX
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png
+    <<: *pr
+
+  - name: TikTok
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png
+    <<: *pr
+
+  - name: Spotify
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Spotify.png
+    <<: *pr
+
+  - name: OneDrive
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/OneDrive.png
+    type: select
+    proxies: [节点选择, 手动选择, DIRECT]
+
+  - name: 微软服务
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Windows_11.png
+    type: select
+    proxies: [DIRECT, 节点选择, 手动选择]
+
+  - name: Steam
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Steam.png
+    <<: *pr
+
+  - name: 海外娱乐
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HKMTMedia.png
+    <<: *pr
+
+  - name: 广告拦截
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/AdBlack.png
+    type: select
+    proxies: [REJECT, DIRECT, 节点选择]
+
+  - name: 漏网之鱼
+    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Final.png
+    <<: *pr
+
+  # 下面是地区分组
+  - name: 香港
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/01Country/Hongkong.png
+    <<: *all
+    filter: "(?i)港|hk|hongkong|hong kong"
+
+  - name: 台湾
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/01Country/taiwan(1).png
+    <<: *all
+    filter: "(?i)台|tw|taiwan"
+
+  - name: 新加坡
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/01Country/singapore(1).png
+    <<: *all
+    filter: "(?i)(新加坡|sg|singapore)"
+
+  - name: 日本
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/01Country/Japan.png
+    <<: *all
+    filter: "(?i)日本|jp|japan"
+
+  - name: 美国
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/01Country/US.png
+    <<: *all
+    filter: "(?i)美|us|unitedstates|united states"
+
+  - name: 其它地区
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
+    <<: *all
+    filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|家|回家|home|财新|caixin|cx|港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates)).*"
+
+# =========================
+# 订阅规则锚点
+# =========================
+rule-anchor:
+  classical_text: &classical_text { type: http, behavior: classical, interval: 86400, format: text, proxy: 节点选择 }
+  classical_yaml: &classical_yaml { type: http, behavior: classical, interval: 86400, format: yaml, proxy: 节点选择 }
+  domain_text: &domain_text { type: http, behavior: domain, interval: 86400, format: text, proxy: 节点选择 }
+  domain_yaml: &domain_yaml { type: http, behavior: domain, interval: 86400, format: yaml, proxy: 节点选择 }
+  ip: &ip { type: http, behavior: ipcidr, interval: 86400, format: yaml, proxy: 节点选择 }
+
+# =========================
+# 订阅规则
+# =========================
+rule-providers:
+  fake_ip_filter:
+    <<: *domain_text
+    path: ./rule_provider/fake_ip_filter
+    url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/fake_ip_filter.txt
+
+  AWAvenue-Ads:
+    <<: *domain_yaml
+    path: ./rule_provider/AWAvenue-Ads.yaml
+    url: https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml
+
+  abcDirect:
+    type: inline
+    behavior: domain
+    payload:
+      - "+.zotero.org"
+      # 如不添加域名rule，匹配ip规则时触发解析，由国外dns解析得到国外的群晖服务器ip，匹配到兜底规则走代理。导致群晖DDNS出错，nas上解析出代理ip，而非实际公网ip
+      # 这也说明了在dns层面做分流，国外dns解析对于国内访问无法提供最优的cdn，苹果、微软等在国内外都提供服务的大公司也是如此
+      # - "+.myds.me"
+      - "tracker.cinefiles.info"
+      - "+.ptzone.xyz"
+
+  WeChat:
+    <<: *classical_yaml
+    path: ./rule_provider/WeChat.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/WeChat/WeChat_No_Resolve.yaml
+
+  Caixin:
+    <<: *domain_text
+    path: ./rule_provider/Caixin.txt
+    url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/Caixin.txt
+
+# =========================
+# 规则
+# =========================
+rules:
+  ### 域名类规则
+  - IP-CIDR,192.168.2.0/24,回家服务,no-resolve
+  - IP-CIDR,124.90.44.40/32,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,adobe.io,REJECT
+
+  # 若需禁用 QUIC 请取消注释 QUIC 两条规则
+  # 防止 YouTube 等使用 QUIC 导致速度不佳, 禁用 443 端口 UDP 流量（拦截所有指向 非中国 IP 的 UDP 443（QUIC）流量）
+  - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT
+  - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOIP,CN))),REJECT
+
+  - RULE-SET,AWAvenue-Ads,广告拦截
+  - RULE-SET,abcDirect,DIRECT
+  - RULE-SET,WeChat,DIRECT
+
+  - GEOSITE,private,DIRECT
+  - GEOSITE,apple,苹果服务
+  - GEOSITE,synology,DIRECT
+  - GEOSITE,paypal,DIRECT
+  - GEOSITE,elsevier,DIRECT
+  - GEOSITE,sciencedirect,DIRECT
+  - GEOSITE,category-pt,DIRECT
+  - GEOSITE,bilibili,哔哩哔哩
+  - RULE-SET,Caixin,财新传媒
+  - GEOSITE,category-ai-!cn,人工智能
+  - GEOSITE,github,节点选择
+  - GEOSITE,twitter,节点选择
+  - GEOSITE,youtube,YouTube
+  - GEOSITE,google,节点选择
+  - GEOSITE,telegram,节点选择
+  - GEOSITE,netflix,NETFLIX
+  - GEOSITE,tiktok,TikTok
+  # - GEOSITE,bahamut,巴哈姆特
+  - GEOSITE,spotify,Spotify
+  - GEOSITE,steam@cn,DIRECT
+  - GEOSITE,steam,Steam
+  - GEOSITE,onedrive,OneDrive
+  - GEOSITE,microsoft,微软服务
+  # - GEOSITE,category-games-!cn,节点选择
+  - GEOSITE,category-entertainment,海外娱乐
+  - GEOSITE,geolocation-!cn@cn,DIRECT
+  - GEOSITE,geolocation-!cn,节点选择
+  - GEOSITE,geolocation-cn@!cn,节点选择
+  # - GEOSITE,geolocation-cn,DIRECT
+  # - GEOSITE,tld-cn,DIRECT
+  - GEOSITE,cn,DIRECT
+
+  ### IP 类规则
+  - GEOIP,CN,DIRECT
+  - MATCH,漏网之鱼
