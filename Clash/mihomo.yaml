@@ -288,10 +288,10 @@ rule-providers:
     path: ./rule_provider/fake_ip_filter
     url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/fake_ip_filter.txt
   
-  Anti-Ads:
-    <<: *domain_text
-    path: ./rule_provider/ADs_merged.txt
-    url: https://raw.githubusercontent.com/JohnsonRan/CRules/mihomo/rules/ADs_merged.txt
+  AWAvenue-Ads:
+    <<: *domain_yaml
+    path: ./rule_provider/AWAvenue-Ads.yaml
+    url: https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml
     
   abcDirect:
     type: inline
@@ -323,7 +323,7 @@ rules:
   # 防止 YouTube 等使用 QUIC 导致速度不佳, 禁用 443 端口 UDP 流量（拦截所有指向 非中国 IP 的 UDP 443（QUIC）流量）
   - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT
   - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOIP,CN))),REJECT
-  - RULE-SET,Anti-Ads,广告拦截
+  - RULE-SET,AWAvenue-Ads,广告拦截
   - RULE-SET,abcDirect,DIRECT
   - RULE-SET,WeChat,DIRECT
   - GEOSITE,private,DIRECT
