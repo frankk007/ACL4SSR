@@ -13,6 +13,7 @@ DOMAIN,hhanclub.top
 DOMAIN,hhan.club
 DOMAIN,audiences.me
 DOMAIN,tracker.cinefiles.info
+DOMAIN,zeus.hamsters.space
 DOMAIN-KEYWORD,open.cd
 DOMAIN-KEYWORD,ptzone
 
