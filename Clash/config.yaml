@@ -382,15 +382,9 @@ rule-providers:
     url: https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml
 
   abcDirect:
-    type: inline
-    behavior: domain
-    payload:
-      - "+.zotero.org"
-      # 如不添加域名rule，匹配ip规则时触发解析，由国外dns解析得到国外的群晖服务器ip，匹配到兜底规则走代理。导致群晖DDNS出错，nas上解析出代理ip，而非实际公网ip
-      # 这也说明了在dns层面做分流，国外dns解析对于国内访问无法提供最优的cdn，苹果、微软等在国内外都提供服务的大公司也是如此
-      # - "+.myds.me"
-      - "tracker.cinefiles.info"
-      - "+.ptzone.xyz"
+    <<: *domain_txt
+    path: ./rule_provider/abcDirect.txt
+    url: https://raw.githubusercontent.com/frankk007/ACL4SSR/doctor/Clash/abcDirect.txt
 
   WeChat:
     <<: *classical_yaml
