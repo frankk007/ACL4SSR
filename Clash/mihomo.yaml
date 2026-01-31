@@ -170,7 +170,7 @@ tun:
   dns-hijack: # 拦截所有发往 53 端口的 DNS 流量，并交给 mihomo 内置 DNS（1053）处理
     - any:53
     - tcp://any:53
-  auto-redirect: false # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux
+  auto-redirect: true # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux
   # strict-route: true # 启用 auto-route 时执行严格的路由规则
   # 如果有使用zerotier或者headscale等，需要自己配置排除自己的网段
   # route-exclude-address: ["192.168.110.0/24"]
