@@ -9,7 +9,7 @@ DOMAIN-SUFFIX,myds.me
 DOMAIN-SUFFIX,quickconnect.to
 DOMAIN-SUFFIX,quickconnect.cn
 DOMAIN-KEYWORD,m-team
-DOMAIN,hhanclub.top
+DOMAIN,hhanclub.net
 DOMAIN,hhan.club
 DOMAIN,audiences.me
 DOMAIN,tracker.cinefiles.info
