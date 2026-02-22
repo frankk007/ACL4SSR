@@ -1,21 +1,23 @@
 # 内容：自用域名直连，学术、群晖qc、pt站、机场
-
-
-＋.sciencedirect.com
-＋.elsevier.com
-＋.zotero.org
-＋.myds.me
-# 如不添加域名rule，匹配ip规则时触发解析，由国外dns解析得到国外的群晖服务器ip，匹配到兜底规则走代理。导致群晖DDNS出错，nas上解析出代理ip，而非实际公网ip
+# 如不添加myds.me域名rule，匹配ip规则时触发解析，由国外dns解析得到国外的群晖服务器ip，匹配到兜底规则走代理。导致群晖DDNS出错，nas上解析出代理ip，而非实际公网ip
 # 这也说明了在dns层面做分流，国外dns解析对于国内访问无法提供最优的cdn，苹果、微软等在国内外都提供服务的大公司也是如此
-＋.quickconnect.to
-＋.quickconnect.cn
-＋.m-team
-＋.hhanclub.net
-＋.hhan.club
-＋.audiences.me
-tracker.cinefiles.info
-zeus.hamsters.space
-＋.open.cd
-＋.ptzone
-qaq.atami.top
 
+  - "+.sciencedirect.com"
+  - "+.elsevier.com"
+  - "+.zotero.org"
+  - "+.myds.me"
+  - "+.sciencedirect.com"
+  - "+.elsevier.com"
+  - "+.zotero.org"
+  - "+.myds.me"
+  - "+.quickconnect.to"
+  - "+.quickconnect.cn"
+  - "+.m-team"
+  - "+.hhanclub.net"
+  - "+.hhan.club"
+  - "+.audiences.me"
+  - "tracker.cinefiles.info"
+  - "zeus.hamsters.space"
+  - "+.open.cd"
+  - "+.ptzone"
+  - "qaq.atami.top"
