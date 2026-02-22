@@ -1,202 +1,197 @@
 # rule-set类型domain_text
 # shellcrash内置fake ip filter规则集https://raw.githubusercontent.com/juewuy/ShellCrash/dev/public/fake_ip_filter.list
+
 fake-ip-filter:
-  # LAN
-  - "*.lan"
-  - "*.localdomain"
-  - "*.example"
-  - "*.invalid"
-  - "*.localhost"
-  - "*.test"
-  - "*.local"
-  - "*.home.arpa"
-  - "*.direct"
+# LAN
+*
+.lan
+.localdomain
+.example
+.invalid
+.localhost
+.test
+.local
+.home.arpa
+.direct
 
-  # 放行NTP服务
-  - "time.*.com"
-  - "time.*.gov"
-  - "time.*.edu.cn"
-  - "time.*.apple.com"
-  - time-ios.apple.com
-  - "time1.*.com"
-  - "time2.*.com"
-  - "time3.*.com"
-  - "time4.*.com"
-  - "time5.*.com"
-  - "time6.*.com"
-  - "time7.*.com"
-  - "ntp.*.com"
-  - "ntp1.*.com"
-  - "ntp2.*.com"
-  - "ntp3.*.com"
-  - "ntp4.*.com"
-  - "ntp5.*.com"
-  - "ntp6.*.com"
-  - "ntp7.*.com"
-  - "*.time.edu.cn"
-  - "*.ntp.org.cn"
-  - "+.pool.ntp.org"
-  - time1.cloud.tencent.com
+# 放行 NTP 服务
+time.*.com
+time.*.gov
+time.*.edu.cn
+time.*.apple.com
+time-ios.apple.com
+time1.*.com
+time2.*.com
+time3.*.com
+time4.*.com
+time5.*.com
+time6.*.com
+time7.*.com
+ntp.*.com
+ntp1.*.com
+ntp2.*.com
+ntp3.*.com
+ntp4.*.com
+ntp5.*.com
+ntp6.*.com
+ntp7.*.com
+.time.edu.cn
+.ntp.org.cn
++pool.ntp.org
+time1.cloud.tencent.com
 
-  # 放行网易云音乐
-  - music.163.com
-  - "*.music.163.com"
-  - "*.126.net"
+# 网易云音乐
+music.163.com
+.music.163.com
+.126.net
 
-  # 百度音乐
-  - musicapi.taihe.com
-  - music.taihe.com
+# 百度音乐
+musicapi.taihe.com
+music.taihe.com
 
-  # 酷狗音乐
-  - songsearch.kugou.com
-  - trackercdn.kugou.com
+# 酷狗音乐
+songsearch.kugou.com
+trackercdn.kugou.com
 
-  # 酷我音乐
-  - "*.kuwo.cn"
+# 酷我音乐
+.kuwo.cn
 
-  # JOOX音乐
-  - api-jooxtt.sanook.com
-  - api.joox.com
-  - joox.com
+# JOOX 音乐
+api-jooxtt.sanook.com
+api.joox.com
+joox.com
 
-  # QQ音乐
-  - y.qq.com
-  - "*.y.qq.com"
-  - streamoc.music.tc.qq.com
-  - mobileoc.music.tc.qq.com
-  - isure.stream.qqmusic.qq.com
-  - dl.stream.qqmusic.qq.com
-  - aqqmusic.tc.qq.com
-  - amobile.music.tc.qq.com
+# QQ 音乐
+y.qq.com
+.y.qq.com
+streamoc.music.tc.qq.com
+mobileoc.music.tc.qq.com
+isure.stream.qqmusic.qq.com
+dl.stream.qqmusic.qq.com
+aqqmusic.tc.qq.com
+amobile.music.tc.qq.com
 
-  # 虾米音乐
-  - "*.xiami.com"
+# 虾米音乐
+.xiami.com
 
-  # 咪咕音乐
-  - "*.music.migu.cn"
-  - music.migu.cn
+# 咪咕音乐
+.music.migu.cn
+music.migu.cn
 
-  # win10本地连接检测
-  - "+.msftconnecttest.com"
-  - "+.msftncsi.com"
+# Win10 本地连接检测
++msftconnecttest.com
++msftncsi.com
 
-  # QQ登录
-  - localhost.ptlogin2.qq.com
-  - localhost.sec.qq.com
+# QQ 登录
+localhost.ptlogin2.qq.com
+localhost.sec.qq.com
 
-  # 微信登录
-  - "localhost.*.weixin.qq.com"
+# 微信登录
+localhost.*.weixin.qq.com
++kk-rays.com
 
-  # Game
-  # Steam
-  - "+.steamcontent.com"
+# Steam
++steamcontent.com
 
-  # Nintendo Switch
-  - "+.srv.nintendo.net"
-  - "*.n.n.srv.nintendo.net"
-  - "+.cdn.nintendo.net"
+# Nintendo Switch
++srv.nintendo.net
+.n.n.srv.nintendo.net
++cdn.nintendo.net
 
-  # Sony PlayStation
-  - "+.stun.playstation.net"
+# Microsoft Xbox
+xbox.*.*.microsoft.com
+*.*.xboxlive.com
+xbox.*.microsoft.com
+xnotify.xboxlive.com
 
-  # Microsoft Xbox
-  - "xbox.*.*.microsoft.com"
-  - "*.*.xboxlive.com"
-  - "xbox.*.microsoft.com"
-  - xnotify.xboxlive.com
+# Wotgame
++battle.net
++battlenet.com.cn
++wotgame.cn
++wggames.cn
++wowsgame.cn
++wargaming.net
 
-  # Wotgame
-  - "+.battle.net"
-  - "+.battlenet.com.cn"
-  - "+.wotgame.cn"
-  - "+.wggames.cn"
-  - "+.wowsgame.cn"
-  - "+.wargaming.net"
+# Golang
+proxy.golang.org
 
-  # Golang
-  - proxy.golang.org
+# STUN
++stun.*.*
++stun.*.*.*
++stun.*.*.*.*
++stun.*.*.*.*.*
 
-  # STUN
-  - "stun.*.*"
-  - "stun.*.*.*"
-  - "+.stun.*.*"
-  - "+.stun.*.*.*"
-  - "+.stun.*.*.*.*"
-  - "+.stun.*.*.*.*.*"
+# Linksys Router
+heartbeat.belkin.com
+.linksys.com
+.linksyssmartwifi.com
 
-  # Linksys Router
-  - heartbeat.belkin.com
-  - "*.linksys.com"
-  - "*.linksyssmartwifi.com"
+# ASUS Router
+.router.asus.com
 
-  # ASUS Router
-  - "*.router.asus.com"
+# Apple Software Update Service
+mesu.apple.com
+swscan.apple.com
+swquery.apple.com
+swdownload.apple.com
+swcdn.apple.com
+swdist.apple.com
 
-  # Apple Software Update Service
-  - mesu.apple.com
-  - swscan.apple.com
-  - swquery.apple.com
-  - swdownload.apple.com
-  - swcdn.apple.com
-  - swdist.apple.com
+# Google
+lens.l.google.com
+na.b.g-tun.com
 
-  # Google
-  - lens.l.google.com
-  - stun.l.google.com
-  - na.b.g-tun.com
+# FinalFantasy XIV
+.square-enix.com
+.finalfantasyxiv.com
+.ffxiv.com
+.ff14.sdo.com
+ff.dorado.sdo.com
 
-  # Netflix
-  - "+.nflxvideo.net"
+# Bilibili
+.mcdn.bilivideo.cn
 
-  # FinalFantasy XIV Worldwide Server & CN Server
-  - "*.square-enix.com"
-  - "*.finalfantasyxiv.com"
-  - "*.ffxiv.com"
-  - "*.ff14.sdo.com"
-  - ff.dorado.sdo.com
+# Disney Plus
++media.dssott.com
 
-  # Bilibili
-  - "*.mcdn.bilivideo.cn"
+# shark007 Codecs
+shark007.net
 
-  # Disney Plus
-  - "+.media.dssott.com"
+# Xiaomi
++market.xiaomi.com
 
-  # shark007 Codecs
-  - shark007.net
+# 招商银行
++cmbchina.com
++cmbimg.com
 
-  # Mijia
-  - Mijia Cloud
+# AdGuard
+adguardteam.github.io
+adrules.top
+anti-ad.net
+local.adguard.org
+static.adtidy.org
 
-  # Xiaomi
-  - "+.market.xiaomi.com"
+# 迅雷
++sandai.net
++n0808.com
 
-  # 招商银行
-  - "+.cmbchina.com"
-  - "+.cmbimg.com"
+# T-mobile / Ultra WiFi Calling
++3gppnetwork.org
 
-  # AdGuard
-  - adguardteam.github.io
-  - adrules.top
-  - anti-ad.net
-  - local.adguard.org
-  - static.adtidy.org
+# UU Plugin
++uu.163.com
+ps.res.netease.com
 
-  # 迅雷
-  - "+.sandai.net"
-  - "+.n0808.com"
+# Wifi Calling
++pub.3gppnetwork.org
 
-  # T-mobile and Ultra Mobile wifi calling
-  - "+.3gppnetwork.org"
+# 向日葵远程
++oray.com
++orayimg.com
 
-  # UU Plugin
-  - "+.uu.163.com"
-  - ps.res.netease.com
+# LOL 语音
++gcloudcs.com
++gcloudsdk.com
 
-  # 向日葵远程控制
-  - "+.oray.com"
-  - "+.orayimg.com"
-
-  # LOL语音
-  - "+.gcloudcs.com"
-  - "+.gcloudsdk.com"
-
+# ddns
++dynv6.net
