@@ -338,7 +338,7 @@ proxy-groups:
   - name: 新加坡
     icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/01Country/singapore(1).png
     <<: *all
-    filter: "(?i)(新加坡|sg|singapore)"
+    filter: "(?i)(新加坡|狮城|sg|singapore)"
 
   - name: 日本
     icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/01Country/Japan.png
@@ -353,7 +353,7 @@ proxy-groups:
   - name: 其它地区
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
     <<: *all
-    filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|家|回家|home|财新|caixin|cx|港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates)).*"
+    filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|家|回家|home|财新|caixin|cx|港|hk|hongkong|台|tw|taiwan|日|jp|japan|新加坡|狮城|sg|singapore|美|us|unitedstates)).*"
 
 # =========================
 # 订阅规则锚点
