@@ -1,5 +1,4 @@
-# win客户端配置
-# 改分组锚点，全部节点改手动选择，删除自动选择，注释订阅2，改geosite库，添加asn库，添加web-ui，耗电异常优化，添加etcs，改sniffer，改tun，改dns，不使用fake-ip
+# 改分组锚点，全部节点改手动选择，删除自动选择，注释订阅2，改geosite库，1800改15，添加etcs，改sniffer，改tun，改dns
 # 添加回家、财新、微信、abcDIRECT、adobe reject、fake_ip_filter、去广告规则，改新加坡和其他地区过滤条件，策略组大改，添加订阅规则锚点，添加rules-set，改rules
 # 使用通配符时，应当使用引号 ' '或 " "将内容包裹起来
 # 参考 https://www.aloxaf.com/2025/04/how_to_use_geosite/，https://github.com/yyhhyyyyyy/selfproxy/blob/main/Mihomo/mihomo_single.yaml
@@ -40,7 +39,7 @@ proxy-providers:
   订阅一:
     <<: *p
     # path: ./proxy_provider/sub.yaml
-    url: "订阅链接"
+    url: "https://gist.githubusercontent.com/frankk007/1b2c539c42f8b41b91427a25257ec8a4/raw/mihomo"
     # 如需要为该订阅组节点添加前缀，取消下面两行注释
     # override:
       # additional-prefix: "[订阅一]"
@@ -98,6 +97,7 @@ geox-url:
   geosite: "https://testingcf.jsdelivr.net/gh/v2fly/domain-list-community@release/dlc.dat"
 # geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
   mmdb: "https://ghfast.top/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb"
+  asn: "https://github.com/xishang0128/geoip/releases/download/Latest/GeoLite2-ASN.mmdb"
 geo-auto-update: true
 geo-update-interval: 24
 
@@ -162,8 +162,8 @@ sniffer:
 
 # tun 配置
 tun:
-  enable: true  
-  stack: mixed  # gvisor/mixed，如无使用问题，建议使用 mixed栈，次之 system
+  enable: true 
+  stack: mixed  # gvisor/system，如无使用问题，建议使用 mixed栈，次之 system
   auto-route: true # 自动设置全局路由，可以自动将全局流量路由进入 tun 网卡
   auto-detect-interface: true # 自动识别出口网卡，多出口网卡同时连接的设备建议手动指定出口网卡
   dns-hijack: # 拦截所有发往 53 端口的 DNS 流量，并交给 mihomo 内置 DNS（1053）处理
@@ -264,7 +264,7 @@ proxy-groups:
   - { name: 微软服务, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Windows_11.png, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
 # - { name: Github, <<: *pr }
   - { name: Steam, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Steam.png, <<: *pr }
-  - { name: 海外娱乐, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HKMTMedia.png, <<: *pr }
+  - { name: 海外娱乐, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HKMTMedia.png, type: fallback, proxies: [香港, 台湾, 新加坡, 日本, 美国, 手动选择, 其它地区] }
   - { name: 广告拦截, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/AdBlack.png, type: select, proxies: [REJECT, DIRECT, 节点选择] }
   - { name: 漏网之鱼, icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Final.png, <<: *pr }
 
