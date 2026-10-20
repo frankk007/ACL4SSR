@@ -1,5 +1,9 @@
 # 内容：自用域名直连，学术、群晖qc、pt站
 
+DOMAIN-SUFFIX,115cdn.net,DIRECT
+DOMAIN-SUFFIX,frankk.tech,DIRECT
+DOMAIN-SUFFIX,re0.tgtodrive.top,DIRECT
+DOMAIN-SUFFIX,uptodate.com,DIRECT
 DOMAIN,sciencedirect.com
 DOMAIN-SUFFIX,elsevier.com
 DOMAIN-SUFFIX,zotero.org
@@ -11,8 +15,6 @@ DOMAIN,hhanclub.net
 DOMAIN,hhan.club
 DOMAIN,audiences.me
 DOMAIN,tracker.cinefiles.info
+DOMAIN-SUFFIX,zeus.hamsters.space
 DOMAIN-KEYWORD,open.cd
 DOMAIN-KEYWORD,ptzone
-DOMAIN,qaq.atami.top
-DOMAIN,hdhive.tgtodrive.top
-
