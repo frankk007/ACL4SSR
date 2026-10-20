@@ -401,8 +401,8 @@ rule-providers:
 rules:
   ### 域名类规则
   - IP-CIDR,192.168.2.0/24,回家服务,no-resolve
-  - IP-CIDR,61.241.96.7/32,DIRECT,no-resolve
-  - IP-CIDR,124.90.44.40/32,DIRECT,no-resolve
+  - IP-CIDR,61.241.96.0/24,DIRECT,no-resolve
+  - IP-CIDR,124.90.44.0/24,DIRECT,no-resolve
   - DOMAIN-SUFFIX,adobe.io,REJECT
 
   # 若需禁用 QUIC 请取消注释 QUIC 两条规则
