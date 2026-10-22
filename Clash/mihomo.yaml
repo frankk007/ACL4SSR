@@ -247,7 +247,6 @@ proxy-groups:
   - { name: 人工智能, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/ChatGPT5.png, type: select, proxies: [手动选择, 香港, 台湾, 新加坡, 日本, 美国, 其它地区] }
   - { name: 苹果服务, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Apple_Arcade.png, type: select, proxies: [DIRECT, 节点选择, 手动选择] }
 # - { name: Google, <<: *pr }
-# - { name: Telegram, <<: *pr }
 # - { name: Twitter, <<: *pr }
 # - { name: Pixiv, <<: *pr }
 # - { name: ehentai, <<: *pr }
@@ -255,6 +254,7 @@ proxy-groups:
   # 下面 rules 两条也要启用
   - {name: 哔哩哔哩, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili.png, type: select, proxies: [DIRECT, 香港, 台湾] }
 # - { name: 巴哈姆特, <<: *pr }
+  - { name: Telegram, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram.png, <<: *pr }
   - { name: YouTube, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png, <<: *pr }
   - { name: NETFLIX, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png, <<: *pr }
   - { name: TikTok, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png, <<: *pr }
@@ -343,7 +343,7 @@ rules:
   - GEOSITE,twitter,节点选择
   - GEOSITE,youtube,YouTube
   - GEOSITE,google,节点选择
-  - GEOSITE,telegram,节点选择
+  - GEOSITE,telegram,Telegram
   - GEOSITE,netflix,NETFLIX
   - GEOSITE,tiktok,TikTok
 # - GEOSITE,bahamut,巴哈姆特
