@@ -281,6 +281,10 @@ proxy-groups:
     type: select
     proxies: [DIRECT, 香港, 台湾]
 
+  - name: Telegram
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram.png
+    <<: *pr    
+
   - name: YouTube
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png
     <<: *pr
@@ -428,7 +432,7 @@ rules:
   - GEOSITE,twitter,节点选择
   - GEOSITE,youtube,YouTube
   - GEOSITE,google,节点选择
-  - GEOSITE,telegram,节点选择
+  - GEOSITE,telegram,Telegram
   - GEOSITE,netflix,NETFLIX
   - GEOSITE,tiktok,TikTok
   # - GEOSITE,bahamut,巴哈姆特
